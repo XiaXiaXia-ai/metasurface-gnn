@@ -1,0 +1,18 @@
+model,f_ghz,abs_gamma,phase_deg,db
+grounded slab TL,9.6000,0.9999,143.6104,-0.0006
+grounded slab TL,9.7000,0.9999,143.1916,-0.0006
+grounded slab TL,9.8000,0.9999,142.7714,-0.0006
+grounded slab TL,9.9000,0.9999,142.3500,-0.0007
+grounded slab TL,10.0000,0.9999,141.9272,-0.0007
+grounded slab TL,10.1000,0.9999,141.5030,-0.0007
+grounded slab TL,10.2000,0.9999,141.0774,-0.0007
+grounded slab TL,10.3000,0.9999,140.6505,-0.0008
+grounded slab TL,10.4000,0.9999,140.2222,-0.0008
+LC element fringing=1.00,10.0000,1.0000,169.6783,-0.0001
+LC element fringing=0.50,10.0000,1.0000,163.7055,-0.0001
+LC element fringing=0.20,10.0000,1.0000,155.1189,-0.0003
+LC element fringing=0.05,10.0000,0.9999,146.3497,-0.0005
+LC element fringing=1.00,10.0000,1.0000,176.4330,-0.0000
+LC element fringing=0.50,10.0000,1.0000,173.4614,-0.0000
+LC element fringing=0.20,10.0000,1.0000,166.9479,-0.0001
+LC element fringing=0.05,10.0000,1.0000,154.1589,-0.0003

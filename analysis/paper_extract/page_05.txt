@@ -1,0 +1,134 @@
+www.advancedsciencenews.com
+www.lpr-journal.org
+inverse design process. First, randomly initialize the features of
+unit cells and process them into a graph. Then input the initial
+graph into GNN to obtain the near-ﬁeld of the metasurface and
+subsequently calculate the loss value between the predicted near-
+ﬁeld and the desired near-ﬁeld according to the loss function. Af-
+ter that, update the features of the unit cells (the node features
+in the graph) through gradient descent and backpropagation. Fi-
+nally, after multiple iterations, the loss value becomes suﬃciently
+small and the desired metasurfaces are obtained. In this process,
+the design of the loss function signiﬁcantly inﬂuences the eﬀec-
+tiveness of the inverse design. To enhance the E-ﬁeld intensity
+in the target region and ensure its uniform distribution, the loss
+function is designed as:
+loss =
+(∫a E (r) dr
+∫E (r) dr −1
+)2
++ A
+∫a
+(
+E (r) −Eavg
+)2dr
+∫a dr
+(3)
+where a represents the target imaging area, the E(r) represents
+the E-ﬁeld intensity at r, the Eavg represents the average E-ﬁeld in-
+tensity over the area a, and ∫
+a integrates the intensity over the area
+a. The ﬁrst part of the loss function aims to increase the E-ﬁeld
+intensity in the target region, while the second part is designed
+to achieve a uniform distribution of E-ﬁeld intensity in the target
+region, and A is a hyperparameter used to balance the intensity
+and uniformity of the near-ﬁeld within the target region.
+To validate the eﬃcacy of the aforementioned design method-
+ology, we have undertaken an inverse design process, employ-
+ing the near-ﬁeld design of a triangular-shaped image as a
+demonstrative example. After obtaining the 30 × 30 metasurface
+through inverse design, we compute its near-ﬁeld using GNN
+and CST individually and the results are shown in Figure 3f. The
+metasurface has achieved the expected functions, validating the
+eﬀectiveness of our inverse design approach.
+2.4. Combination of GNN and Diﬀraction Theory
+The Rayleigh-Sommerfeld diﬀraction theory can also be utilized
+for calculating the scattered ﬁelds of metasurfaces. In this the-
+ory, each point on a wavefront can be considered as a central
+wave source that generates wavelets. Currently, this method is
+combined with various algorithms such as Gerchberg–Saxton al-
+gorithm, and widely used in holographic imaging.[39–42] The pro-
+cess of Rayleigh–Sommerfeld diﬀraction can be mathematically
+expressed as:
+E (x, y, z) = ∫∫
+z
+l2
+(
+1
+2𝜋l + 1
+j𝜆
+)
+e−j 2𝜋l
+𝜆E (x′, y
+′, 0) dx′dy′
+(4)
+where E(x′, y
+′, 0) represents the E-ﬁeld at a point on the near-ﬁeld
+plane, and E(x, y, z) represents the E-ﬁeld at a point on the plane
+located at a distance z from the near-ﬁeld plane. The variable l
+denotes the distance between a point (x, y, z) on the further plane
+and the center point of the near-ﬁeld plane, which can be ex-
+pressed as l =
+√
+x2 + y2 + z2. 𝜆represents the wavelength of the
+EM wave. According to Equation (4), the near-ﬁeld data can be
+extrapolated to predict the scattered ﬁelds at any given distance.
+Therefore, we can compute the scattered ﬁelds on the surface of
+metasurfaces according to the reﬂection coeﬃcient of the unit
+cells, and subsequently apply the Rayleigh–Sommerfeld diﬀrac-
+tion method to calculate the scattered ﬁelds of metasurfaces on
+the plane at any distance. However, it is crucial to note that the
+diﬀraction method makes an assumption that each secondary
+wave source operates independently, overlooking mutual cou-
+pling eﬀects. Consequently, a direct application of this method
+to compute the scattered ﬁelds of highly coupled metasurfaces
+may induce substantial inaccuracies.
+Despite the mentioned drawbacks of diﬀraction method, it can
+accurately calculate the scattered ﬁelds at any distance for known
+near-ﬁelds. This compensates for the limitation of GNN that it
+can only predict the near-ﬁeld at a ﬁxed distance. By combining
+GNN with diﬀraction method, we can accurately obtain the scat-
+tered ﬁelds of metasurfaces with arbitrary-large size at any dis-
+tance. We have randomly generated a 30 × 30 metasurface and
+employed diﬀerent methods to calculate the scattered ﬁelds on
+the planes located 20 and 30 wavelengths away from it. The per-
+formance is shown in Figure 4b,c. The scattered ﬁelds computed
+using GNN closely align with the simulation results, showcasing
+minimal deviation, whereas the outcomes derived solely from the
+diﬀraction method manifest notable distortions.
+2.5. Near-to-Far Transformation
+In numerous metasurfaces applications, particularly in the realm
+of wireless communications, the far-ﬁeld behavior holds signiﬁ-
+cant importance. Although the GNN is only used to predict the
+near-ﬁelds of metasurfaces in this work, the far-ﬁelds can be eas-
+ily obtained by near-to-far transformation algorithms,[43,44] fur-
+ther expanding its application scenarios. Here we have employed
+the plane wave expansion method for far-ﬁeld calculation.[45] The
+near-ﬁeld of a metasurface can be written as a superposition of
+plane waves (all of the same frequency, diﬀerent amplitudes, and
+traveling in diﬀerent directions) of the form f (kx, ky) exp(−jkr).
+The function f (kx, ky) is the vector amplitude of the wave, and kx
+and ky are the spectral frequencies which extend over the entire
+frequency spectrum. Thus, the E-ﬁeld in spherical coordinates
+can be written as:
+E (r, 𝜃, 𝜑) ≅jke−jkr
+2𝜋r
+[
+𝜽(fxcos𝜑+ fysin𝜑)
++ 𝝋cos𝜃(−fxsin𝜑+ fycos𝜑) ]
+(5)
+where fx and fy are the components of f in the x and y directions
+respectively. As r tends to inﬁnity, we can obtain the far-ﬁeld of
+the metasurface. As an example, we have randomly generated a
+metasurface and separately computed its far-ﬁeld radiation pat-
+tern in E-plane using diﬀraction method and GNN. Then the re-
+sults are compared with simulation data, as shown in Figure 4d.
+The Pearson correlation coeﬃcient 𝜌between the diﬀraction re-
+sults and simulation results is 0.702, while for the GNN results,
+it is 0.878, indicating that the GNN method is notably more accu-
+rate than the diﬀraction method that does not consider the cou-
+pling eﬀects (Supplementary Note S4, Supporting Information).
+Laser Photonics Rev. 2025, 19, 2400979
+© 2024 Wiley-VCH GmbH
+2400979 (5 of 8)
+ 18638899, 2025, 1, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/lpor.202400979 by National University Of Defense, Wiley Online Library on [18/10/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License

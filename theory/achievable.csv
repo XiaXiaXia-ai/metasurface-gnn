@@ -1,0 +1,6 @@
+case,specular,mean_far,reduction_db
+"A current code, ideal 180 deg pair, no background",-2.596,-6.635,21.938
+"B current code, 180 deg pair + background b=0.44 kept",10.801,-6.512,8.541
+"C balanced code, ideal 180 deg pair, no background",-41.841,-6.834,61.183
+D balanced code + background b=0.44 kept,12.187,-6.397,7.155
+E balanced code + 10 deg rms phase error (practical floor),-29.271,,48.613

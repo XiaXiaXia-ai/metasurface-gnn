@@ -1,0 +1,707 @@
+﻿{
+    "status":  "ok",
+    "message-type":  "work",
+    "message-version":  "1.0.0",
+    "message":  {
+                    "indexed":  {
+                                    "date-parts":  [
+                                                       [
+                                                           2026,
+                                                           9,
+                                                           5
+                                                       ]
+                                                   ],
+                                    "date-time":  "2026-09-05T09:48:16Z",
+                                    "timestamp":  1788601696992,
+                                    "version":  "build-2803163510"
+                                },
+                    "reference-count":  45,
+                    "publisher":  "Wiley",
+                    "issue":  "1",
+                    "license":  [
+                                    {
+                                        "start":  {
+                                                      "date-parts":  [
+                                                                         [
+                                                                             2024,
+                                                                             8,
+                                                                             20
+                                                                         ]
+                                                                     ],
+                                                      "date-time":  "2024-08-20T00:00:00Z",
+                                                      "timestamp":  1724112000000
+                                                  },
+                                        "content-version":  "vor",
+                                        "delay-in-days":  0,
+                                        "URL":  "http://onlinelibrary.wiley.com/termsAndConditions#vor"
+                                    },
+                                    {
+                                        "start":  {
+                                                      "date-parts":  [
+                                                                         [
+                                                                             2024,
+                                                                             8,
+                                                                             20
+                                                                         ]
+                                                                     ],
+                                                      "date-time":  "2024-08-20T00:00:00Z",
+                                                      "timestamp":  1724112000000
+                                                  },
+                                        "content-version":  "tdm",
+                                        "delay-in-days":  0,
+                                        "URL":  "http://doi.wiley.com/10.1002/tdm_license_1.1"
+                                    }
+                                ],
+                    "funder":  [
+                                   {
+                                       "DOI":  "10.13039/501100001809",
+                                       "name":  "National Natural Science Foundation of China",
+                                       "doi-asserted-by":  "publisher",
+                                       "award":  [
+                                                     "61625502"
+                                                 ],
+                                       "award-info":  [
+                                                          {
+                                                              "award-number":  [
+                                                                                   "61625502"
+                                                                               ]
+                                                          }
+                                                      ],
+                                       "id":  [
+                                                  {
+                                                      "id":  "10.13039/501100001809",
+                                                      "id-type":  "DOI",
+                                                      "asserted-by":  "publisher"
+                                                  }
+                                              ]
+                                   },
+                                   {
+                                       "DOI":  "10.13039/501100001809",
+                                       "name":  "National Natural Science Foundation of China",
+                                       "doi-asserted-by":  "publisher",
+                                       "award":  [
+                                                     "11961141010"
+                                                 ],
+                                       "award-info":  [
+                                                          {
+                                                              "award-number":  [
+                                                                                   "11961141010"
+                                                                               ]
+                                                          }
+                                                      ],
+                                       "id":  [
+                                                  {
+                                                      "id":  "10.13039/501100001809",
+                                                      "id-type":  "DOI",
+                                                      "asserted-by":  "publisher"
+                                                  }
+                                              ]
+                                   },
+                                   {
+                                       "DOI":  "10.13039/501100001809",
+                                       "name":  "National Natural Science Foundation of China",
+                                       "doi-asserted-by":  "publisher",
+                                       "award":  [
+                                                     "61975176"
+                                                 ],
+                                       "award-info":  [
+                                                          {
+                                                              "award-number":  [
+                                                                                   "61975176"
+                                                                               ]
+                                                          }
+                                                      ],
+                                       "id":  [
+                                                  {
+                                                      "id":  "10.13039/501100001809",
+                                                      "id-type":  "DOI",
+                                                      "asserted-by":  "publisher"
+                                                  }
+                                              ]
+                                   },
+                                   {
+                                       "DOI":  "10.13039/501100001809",
+                                       "name":  "National Natural Science Foundation of China",
+                                       "doi-asserted-by":  "publisher",
+                                       "award":  [
+                                                     "62071424"
+                                                 ],
+                                       "award-info":  [
+                                                          {
+                                                              "award-number":  [
+                                                                                   "62071424"
+                                                                               ]
+                                                          }
+                                                      ],
+                                       "id":  [
+                                                  {
+                                                      "id":  "10.13039/501100001809",
+                                                      "id-type":  "DOI",
+                                                      "asserted-by":  "publisher"
+                                                  }
+                                              ]
+                                   },
+                                   {
+                                       "DOI":  "10.13039/501100001809",
+                                       "name":  "National Natural Science Foundation of China",
+                                       "doi-asserted-by":  "publisher",
+                                       "award":  [
+                                                     "62101485"
+                                                 ],
+                                       "award-info":  [
+                                                          {
+                                                              "award-number":  [
+                                                                                   "62101485"
+                                                                               ]
+                                                          }
+                                                      ],
+                                       "id":  [
+                                                  {
+                                                      "id":  "10.13039/501100001809",
+                                                      "id-type":  "DOI",
+                                                      "asserted-by":  "publisher"
+                                                  }
+                                              ]
+                                   },
+                                   {
+                                       "DOI":  "10.13039/501100012226",
+                                       "name":  "Fundamental Research Funds for the Central Universities",
+                                       "doi-asserted-by":  "publisher",
+                                       "id":  [
+                                                  {
+                                                      "id":  "10.13039/501100012226",
+                                                      "id-type":  "DOI",
+                                                      "asserted-by":  "publisher"
+                                                  }
+                                              ]
+                                   }
+                               ],
+                    "content-domain":  {
+                                           "domain":  [
+                                                          "onlinelibrary.wiley.com"
+                                                      ],
+                                           "crossmark-restriction":  true
+                                       },
+                    "short-container-title":  [
+                                                  "Laser \u0026amp;amp; Photonics Reviews"
+                                              ],
+                    "published-print":  {
+                                            "date-parts":  [
+                                                               [
+                                                                   2025,
+                                                                   1
+                                                               ]
+                                                           ]
+                                        },
+                    "abstract":  "\u003cjats:title\u003eAbstract\u003c/jats:title\u003e\n                  \u003cjats:p\u003eIntelligent metasurfaces, as the next‐generation of metasurfaces, have emerged as a versatile artificial electromagnetic (EM) medium capable of adaptively manipulating wave‐matter interactions, especially in the construction of EM space integration and the analogy of wave‐based neural networks. However, current computational landscape for intelligent metasurfaces relies either on time‐consuming full‐wave numerical simulations with excessive computational complexity or on application‐limited physical models that are difficult to consider the coupling effects. Here, a universal graph neural network (GNN) framework is introduced, incorporating the elusive coupling effects inside metasurfaces, enabling rapid and precise characterization with arbitrary‐large size. This framework exhibits exceptional compatibility with physical models, thereby significantly expanding the realm of potential design scenarios. By harnessing the principles of diffraction theory and near‐to‐far transformation algorithms, highly accurate modeling of the scattered fields emanating from metasurfaces is achieved. Through microwave experiments on intelligent metasurfaces, the efficacy of GNN in real‐world scenarios is effectively demonstrated. The utilization of topological strategies to characterize intelligent metasurfaces marks a major leap toward the next‐generation metasurfaces, promising transformative advancements across various applications.\u003c/jats:p\u003e",
+                    "DOI":  "10.1002/lpor.202400979",
+                    "type":  "journal-article",
+                    "created":  {
+                                    "date-parts":  [
+                                                       [
+                                                           2024,
+                                                           8,
+                                                           20
+                                                       ]
+                                                   ],
+                                    "date-time":  "2024-08-20T04:45:30Z",
+                                    "timestamp":  1724129130000
+                                },
+                    "update-policy":  "https://doi.org/10.1002/crossmark_policy",
+                    "source":  "Crossref",
+                    "is-referenced-by-count":  24,
+                    "title":  [
+                                  "General Characterization of Intelligent Metasurfaces with Graph Coupling Network"
+                              ],
+                    "prefix":  "10.1002",
+                    "volume":  "19",
+                    "author":  [
+                                   {
+                                       "given":  "Ouling",
+                                       "family":  "Wu",
+                                       "sequence":  "first",
+                                       "affiliation":  [
+                                                           {
+                                                               "name":  "ZJU‐UIUC Institute Interdisciplinary Center for Quantum Information State Key Laboratory of Extreme Photonics and Instrumentation Zhejiang University  Hangzhou 310027 China"
+                                                           },
+                                                           {
+                                                               "name":  "ZJU‐Hangzhou Global Science and Technology Innovation Center Key Lab. of Advanced Micro/Nano Electronic Devices \u0026amp; Smart Systems of Zhejiang Zhejiang University  Hangzhou 310027 China"
+                                                           },
+                                                           {
+                                                               "name":  "Jinhua Institute of Zhejiang University Zhejiang University  Jinhua 321099 China"
+                                                           }
+                                                       ],
+                                       "role":  [
+                                                    {
+                                                        "vocabulary":  "crossref",
+                                                        "role":  "author"
+                                                    }
+                                                ]
+                                   },
+                                   {
+                                       "given":  "Chao",
+                                       "family":  "Qian",
+                                       "sequence":  "additional",
+                                       "affiliation":  [
+                                                           {
+                                                               "name":  "ZJU‐UIUC Institute Interdisciplinary Center for Quantum Information State Key Laboratory of Extreme Photonics and Instrumentation Zhejiang University  Hangzhou 310027 China"
+                                                           },
+                                                           {
+                                                               "name":  "ZJU‐Hangzhou Global Science and Technology Innovation Center Key Lab. of Advanced Micro/Nano Electronic Devices \u0026amp; Smart Systems of Zhejiang Zhejiang University  Hangzhou 310027 China"
+                                                           },
+                                                           {
+                                                               "name":  "Jinhua Institute of Zhejiang University Zhejiang University  Jinhua 321099 China"
+                                                           }
+                                                       ],
+                                       "role":  [
+                                                    {
+                                                        "vocabulary":  "crossref",
+                                                        "role":  "author"
+                                                    }
+                                                ]
+                                   },
+                                   {
+                                       "given":  "Zhixiang",
+                                       "family":  "Fan",
+                                       "sequence":  "additional",
+                                       "affiliation":  [
+                                                           {
+                                                               "name":  "ZJU‐UIUC Institute Interdisciplinary Center for Quantum Information State Key Laboratory of Extreme Photonics and Instrumentation Zhejiang University  Hangzhou 310027 China"
+                                                           },
+                                                           {
+                                                               "name":  "ZJU‐Hangzhou Global Science and Technology Innovation Center Key Lab. of Advanced Micro/Nano Electronic Devices \u0026amp; Smart Systems of Zhejiang Zhejiang University  Hangzhou 310027 China"
+                                                           },
+                                                           {
+                                                               "name":  "Jinhua Institute of Zhejiang University Zhejiang University  Jinhua 321099 China"
+                                                           }
+                                                       ],
+                                       "role":  [
+                                                    {
+                                                        "vocabulary":  "crossref",
+                                                        "role":  "author"
+                                                    }
+                                                ]
+                                   },
+                                   {
+                                       "given":  "Xiaoyue",
+                                       "family":  "Zhu",
+                                       "sequence":  "additional",
+                                       "affiliation":  [
+                                                           {
+                                                               "name":  "ZJU‐UIUC Institute Interdisciplinary Center for Quantum Information State Key Laboratory of Extreme Photonics and Instrumentation Zhejiang University  Hangzhou 310027 China"
+                                                           },
+                                                           {
+                                                               "name":  "ZJU‐Hangzhou Global Science and Technology Innovation Center Key Lab. of Advanced Micro/Nano Electronic Devices \u0026amp; Smart Systems of Zhejiang Zhejiang University  Hangzhou 310027 China"
+                                                           },
+                                                           {
+                                                               "name":  "Jinhua Institute of Zhejiang University Zhejiang University  Jinhua 321099 China"
+                                                           }
+                                                       ],
+                                       "role":  [
+                                                    {
+                                                        "vocabulary":  "crossref",
+                                                        "role":  "author"
+                                                    }
+                                                ]
+                                   },
+                                   {
+                                       "ORCID":  "https://orcid.org/0000-0002-5735-9781",
+                                       "authenticated-orcid":  false,
+                                       "given":  "Hongsheng",
+                                       "family":  "Chen",
+                                       "sequence":  "additional",
+                                       "affiliation":  [
+                                                           {
+                                                               "name":  "ZJU‐UIUC Institute Interdisciplinary Center for Quantum Information State Key Laboratory of Extreme Photonics and Instrumentation Zhejiang University  Hangzhou 310027 China"
+                                                           },
+                                                           {
+                                                               "name":  "ZJU‐Hangzhou Global Science and Technology Innovation Center Key Lab. of Advanced Micro/Nano Electronic Devices \u0026amp; Smart Systems of Zhejiang Zhejiang University  Hangzhou 310027 China"
+                                                           },
+                                                           {
+                                                               "name":  "Jinhua Institute of Zhejiang University Zhejiang University  Jinhua 321099 China"
+                                                           }
+                                                       ],
+                                       "role":  [
+                                                    {
+                                                        "vocabulary":  "crossref",
+                                                        "role":  "author"
+                                                    }
+                                                ]
+                                   }
+                               ],
+                    "member":  "311",
+                    "published-online":  {
+                                             "date-parts":  [
+                                                                [
+                                                                    2024,
+                                                                    8,
+                                                                    20
+                                                                ]
+                                                            ]
+                                         },
+                    "reference":  [
+                                      {
+                                          "key":  "e_1_2_9_1_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1117/1.AP.6.1.016001"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_2_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1038/lsa.2014.99"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_3_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.2528/PIER23090201"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_4_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1038/s41467-020-17390-3"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_5_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1002/aisy.202300065"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_6_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1038/s41467-023-39070-8"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_7_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1038/s41377-019-0205-3"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_8_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1364/OE.521602"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_9_1",
+                                          "first-page":  "1",
+                                          "volume":  "1",
+                                          "author":  "Feng Y.",
+                                          "year":  "2023",
+                                          "journal-title":  "EMScience"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_10_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1038/s41566-020-0604-2"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_11_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1038/s41467-020-17808-y"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_12_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1126/sciadv.abn7905"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_13_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1002/lpor.202100718"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_14_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1109/MVT.2023.3332580"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_15_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1038/s41928-021-00589-7"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_16_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1038/s41566-021-00793-z"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_17_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1038/s41586-024-07386-0"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_18_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1002/advs.202308807"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_19_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1021/acs.nanolett.8b03171"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_20_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1038/s41377-023-01131-4"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_21_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1002/adma.201904790"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_22_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1021/acsphotonics.0c01468"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_23_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1002/lpor.202400063"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_24_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1038/s41467-021-23087-y"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_25_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1038/s41467-023-40619-w"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_26_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1002/adom.202200748"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_27_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1021/acsphotonics.1c00100"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_28_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1002/adom.202102113"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_29_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1016/j.photonics.2022.101071"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_30_1",
+                                          "unstructured":  "K.Xu W.Hu J.Leskovec S.Jegelka ArXiv 1810.008262018."
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_31_1",
+                                          "unstructured":  "Z.Guo H.He D.Katabi presented atProceedings of the 36th International Conference on Machine Learning Long Beach California 2019 7364‐7373."
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_32_1",
+                                          "unstructured":  "K.Han Y.Wang J.Guo Y.Tang E.Wu ArXiv 2206.002722022."
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_33_1",
+                                          "first-page":  "1",
+                                          "volume":  "55",
+                                          "author":  "Wu S.",
+                                          "year":  "2022",
+                                          "journal-title":  "ACM Comput. Surv."
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_34_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1039/D1SC05180F"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_35_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1016/j.jmgm.2023.108506"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_36_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.3390/photonics10080892"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_37_1",
+                                          "unstructured":  "X.He K.Deng X.Wang Y.Li Y.Zhang M.Wang ArXiv:2002.02126 2020."
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_38_1",
+                                          "unstructured":  "S.Peng K.Sugiyama T.Mine arXiv:2208.126892022."
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_39_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1063/5.0054117"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_40_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1038/s41467-020-19312-9"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_41_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1038/s41467-021-23814-5"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_42_1",
+                                          "first-page":  "103",
+                                          "volume":  "178",
+                                          "author":  "Jin L.",
+                                          "year":  "2023",
+                                          "journal-title":  "Prog. Electromagn. Res."
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_43_1",
+                                          "doi-asserted-by":  "publisher",
+                                          "DOI":  "10.1109/MAP.2014.6837096"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_44_1",
+                                          "doi-asserted-by":  "crossref",
+                                          "unstructured":  "K.Phaebua T.Lertwiriyaprapa D.Torrungrueng presented at20219th iEECON IEEE Pattaya Thailand 535–538 2021.",
+                                          "DOI":  "10.1109/iEECON51072.2021.9440275"
+                                      },
+                                      {
+                                          "key":  "e_1_2_9_45_1",
+                                          "first-page":  "684",
+                                          "volume-title":  "Antenna Theory: Analysis and Design",
+                                          "author":  "Balanis C.",
+                                          "year":  "2016"
+                                      }
+                                  ],
+                    "container-title":  [
+                                            "Laser \u0026amp; Photonics Reviews"
+                                        ],
+                    "original-title":  [
+
+                                       ],
+                    "language":  "en",
+                    "link":  [
+                                 {
+                                     "URL":  "https://onlinelibrary.wiley.com/doi/pdf/10.1002/lpor.202400979",
+                                     "content-type":  "application/pdf",
+                                     "content-version":  "vor",
+                                     "intended-application":  "text-mining"
+                                 },
+                                 {
+                                     "URL":  "https://onlinelibrary.wiley.com/doi/full-xml/10.1002/lpor.202400979",
+                                     "content-type":  "application/xml",
+                                     "content-version":  "vor",
+                                     "intended-application":  "text-mining"
+                                 },
+                                 {
+                                     "URL":  "https://onlinelibrary.wiley.com/doi/pdf/10.1002/lpor.202400979",
+                                     "content-type":  "unspecified",
+                                     "content-version":  "vor",
+                                     "intended-application":  "similarity-checking"
+                                 }
+                             ],
+                    "deposited":  {
+                                      "date-parts":  [
+                                                         [
+                                                             2026,
+                                                             3,
+                                                             8
+                                                         ]
+                                                     ],
+                                      "date-time":  "2026-03-08T09:03:45Z",
+                                      "timestamp":  1772960625000
+                                  },
+                    "score":  1,
+                    "resource":  {
+                                     "primary":  {
+                                                     "URL":  "https://onlinelibrary.wiley.com/doi/10.1002/lpor.202400979"
+                                                 }
+                                 },
+                    "subtitle":  [
+
+                                 ],
+                    "short-title":  [
+
+                                    ],
+                    "issued":  {
+                                   "date-parts":  [
+                                                      [
+                                                          2024,
+                                                          8,
+                                                          20
+                                                      ]
+                                                  ]
+                               },
+                    "references-count":  45,
+                    "journal-issue":  {
+                                          "issue":  "1",
+                                          "published-print":  {
+                                                                  "date-parts":  [
+                                                                                     [
+                                                                                         2025,
+                                                                                         1
+                                                                                     ]
+                                                                                 ]
+                                                              }
+                                      },
+                    "alternative-id":  [
+                                           "10.1002/lpor.202400979"
+                                       ],
+                    "URL":  "https://doi.org/10.1002/lpor.202400979",
+                    "archive":  [
+                                    "Portico"
+                                ],
+                    "relation":  {
+
+                                 },
+                    "ISSN":  [
+                                 "1863-8880",
+                                 "1863-8899"
+                             ],
+                    "issn-type":  [
+                                      {
+                                          "value":  "1863-8880",
+                                          "type":  "print"
+                                      },
+                                      {
+                                          "value":  "1863-8899",
+                                          "type":  "electronic"
+                                      }
+                                  ],
+                    "subject":  [
+
+                                ],
+                    "published":  {
+                                      "date-parts":  [
+                                                         [
+                                                             2024,
+                                                             8,
+                                                             20
+                                                         ]
+                                                     ]
+                                  },
+                    "assertion":  [
+                                      {
+                                          "value":  "2024-06-26",
+                                          "order":  0,
+                                          "name":  "received",
+                                          "label":  "Received",
+                                          "group":  {
+                                                        "name":  "publication_history",
+                                                        "label":  "Publication History"
+                                                    }
+                                      },
+                                      {
+                                          "value":  "2024-08-20",
+                                          "order":  3,
+                                          "name":  "published",
+                                          "label":  "Published",
+                                          "group":  {
+                                                        "name":  "publication_history",
+                                                        "label":  "Publication History"
+                                                    }
+                                      }
+                                  ],
+                    "article-number":  "2400979"
+                }
+}

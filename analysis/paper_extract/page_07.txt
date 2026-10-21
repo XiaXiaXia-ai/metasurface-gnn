@@ -1,0 +1,56 @@
+www.advancedsciencenews.com
+www.lpr-journal.org
+Figure 5. Intelligent metasurfaces experiment. a) The unit cell of intelligent metasurface and the equivalent circuits of the diode in “on” and “oﬀ” states.
+b) The reﬂective amplitude and phase response of the metasurface when the diode is in “on” and “oﬀ” states. c) Near-ﬁeld experimental setup. d) The
+comparison between GNN prediction results and experimental results in the case of 5 × 5 metasurfaces.
+distinct unit designs. Similarly, the features of edges can also be
+deﬁned accordingly based on the speciﬁc structures of the meta-
+surfaces, such as hexagonal lattice arrangements and origami
+designs. Fundamentally, we have endowed GNN with realistic
+physical meanings, analyzing intricate coupling relationships
+that have been challenging to resolve. The physical abstraction
+of GNN holds paramount importance for numerous applica-
+tions, such as scattering mechanisms in random media and
+single-pixel imaging. By combining the proposed design model
+with mature micro/nanofabrication technologies (such as Micro-
+Electro-Mechanical Systems and phase-change materials), simi-
+lar concepts can be seamlessly extended to higher frequencies.
+We believe that the abstraction strategy of graphs, combined with
+algorithm-driven metasurfaces, holds the key to fabricating large-
+scale intelligent metadevices.
+4. Experimental Section
+Data Generation and Training of GNN:
+In the data generation stage, we
+have collected 10 648 sets of data using CST Microwave Studio software
+guided by sliding window method. The whole dataset is shuﬄed, where
+80% are blindly selected as the training set and the remaining 20% are
+used for validation and testing. We use the Deep Graph Library (DGL) to
+implement the GNN and convert all data into graphs to meet its input data
+format. The GNN is trained using Python version 3.10 and Pytorch frame-
+work on a server (GeForce RTX 4090 GPU and an AMD Ryzen Threadripper
+PRO 5975WX 32-Cores with 128 GB RAM, running on a Windows operat-
+ing system).
+Control Module for Intelligent Metasurfaces System:
+Independent volt-
+age control for 400-unit cells can be achieved through Verilog program-
+ming in Vivado 2018.3. The program is written into the FPGA (model:
+PYNQ-Z2), which generates serial signals. In Verilog code, 1 and 0 rep-
+resent high and low voltage levels respectively, corresponding to FPGA
+outputs of 3.3 and 0 V. The control circuit then converts the serial signals
+into parallel signals, thereby enabling independent control of the unit cells.
+Supporting Information
+Supporting Information is available from the Wiley Online Library or from
+the author.
+Acknowledgements
+This work at Zhejiang University was sponsored by the National Natu-
+ral Science Foundation of China (NNSFC) under Grant Nos. 61625502,
+11961141010, 61975176, 62071424, and 62101485, the Young Elite Sci-
+entists Sponsorship Program by CAST (2022QNRC001), the Top-Notch
+Young Talents Program of China, and the Fundamental Research Funds
+for the Central Universities.
+Conﬂict of Interest
+The authors declare no conﬂict of interest.
+Laser Photonics Rev. 2025, 19, 2400979
+© 2024 Wiley-VCH GmbH
+2400979 (7 of 8)
+ 18638899, 2025, 1, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/lpor.202400979 by National University Of Defense, Wiley Online Library on [18/10/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License

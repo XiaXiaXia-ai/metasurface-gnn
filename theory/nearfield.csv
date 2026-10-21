@@ -1,0 +1,3 @@
+z_mm,z_over_lambda,max_dev_core_db,rms_dev_core_db,max_dev_two_term_db,onaxis_rs,onaxis_as,farfield_amplitude
+600.0000,20.0138,0.2286,0.1070,0.0040,0.1781,0.1801,0.0003
+900.0000,30.0208,0.5768,0.2187,0.0018,0.2028,0.2023,0.0002

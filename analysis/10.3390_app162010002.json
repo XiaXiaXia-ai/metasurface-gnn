@@ -1,0 +1,564 @@
+﻿{
+    "status":  "ok",
+    "message-type":  "work",
+    "message-version":  "1.0.0",
+    "message":  {
+                    "indexed":  {
+                                    "date-parts":  [
+                                                       [
+                                                           2026,
+                                                           10,
+                                                           9
+                                                       ]
+                                                   ],
+                                    "date-time":  "2026-10-09T16:51:25Z",
+                                    "timestamp":  1791564685136,
+                                    "version":  "4.3.4"
+                                },
+                    "reference-count":  25,
+                    "publisher":  "MDPI AG",
+                    "issue":  "20",
+                    "license":  [
+                                    {
+                                        "start":  {
+                                                      "date-parts":  [
+                                                                         [
+                                                                             2026,
+                                                                             10,
+                                                                             9
+                                                                         ]
+                                                                     ],
+                                                      "date-time":  "2026-10-09T00:00:00Z",
+                                                      "timestamp":  1791504000000
+                                                  },
+                                        "content-version":  "vor",
+                                        "delay-in-days":  0,
+                                        "URL":  "https://creativecommons.org/licenses/by/4.0/"
+                                    },
+                                    {
+                                        "start":  {
+                                                      "date-parts":  [
+                                                                         [
+                                                                             2026,
+                                                                             10,
+                                                                             9
+                                                                         ]
+                                                                     ],
+                                                      "date-time":  "2026-10-09T00:00:00Z",
+                                                      "timestamp":  1791504000000
+                                                  },
+                                        "content-version":  "tdm",
+                                        "delay-in-days":  0,
+                                        "URL":  "https://creativecommons.org/licenses/by/4.0/"
+                                    }
+                                ],
+                    "funder":  [
+                                   {
+                                       "DOI":  "10.13039/501100001809",
+                                       "name":  "National Natural Science Foundation of China",
+                                       "doi-asserted-by":  "publisher",
+                                       "award":  [
+                                                     "62201269"
+                                                 ],
+                                       "award-info":  [
+                                                          {
+                                                              "award-number":  [
+                                                                                   "62201269"
+                                                                               ]
+                                                          }
+                                                      ],
+                                       "id":  [
+                                                  {
+                                                      "id":  "10.13039/501100001809",
+                                                      "id-type":  "DOI",
+                                                      "asserted-by":  "publisher"
+                                                  }
+                                              ]
+                                   },
+                                   {
+                                       "award":  [
+                                                     "62201269"
+                                                 ],
+                                       "award-info":  [
+                                                          {
+                                                              "award-number":  [
+                                                                                   "62201269"
+                                                                               ]
+                                                          }
+                                                      ],
+                                       "id":  [
+                                                  {
+                                                      "id":  "https://ror.org/01h0zpd94",
+                                                      "id-type":  "ROR",
+                                                      "asserted-by":  "publisher"
+                                                  }
+                                              ]
+                                   }
+                               ],
+                    "content-domain":  {
+                                           "domain":  [
+
+                                                      ],
+                                           "crossmark-restriction":  false
+                                       },
+                    "short-container-title":  [
+                                                  "Appl. Sci.",
+                                                  "Applied Sciences"
+                                              ],
+                    "abstract":  "\u003cjats:p\u003eCoding metasurfaces provide an effective approach for manipulating electromagnetic scattering through discrete coding states. However, obtaining angular-domain scattering responses for a large number of coding configurations remains computationally expensive with full-wave electromagnetic simulations. To address this issue, this work proposes a Physics-Guided Residual Learning (PGRL) framework for rapid radar cross section (RCS) prediction over the full angular domain. A discrete-aperture model provides an approximate physics-based scattering prior, and a residual convolutional neural network learns the discrepancy between this prior and the full-wave reference in the dBsm domain. Periodic azimuthal encoding, angular-gradient features, and validity information are incorporated into the input representation. Furthermore, a structure-preserving loss jointly constrains pointwise RCS values, angular gradients, and local curvature. Experiments are conducted on a finite 16 × 16 1-bit coding metasurface at 9 GHz under normal incidence and x-polarized excitation. PGRL achieves an RMSE of 3.67 dB, an MAE of 2.74 dB, and a mean coefficient of determination of 0.86, with improved overall prediction performance compared with the considered baselines. Ablation experiments further evaluate the contributions of the physics-aware representation, training objective and regularization, periodic azimuthal encoding, and baseline-gradient features under controlled settings. These results demonstrate the effectiveness of combining an approximate physics-based scattering prior with data-driven residual correction for the investigated electromagnetic setting. Application to other structures, operating conditions, or experimental measurement data remains subject to model adaptation and independent validation.\u003c/jats:p\u003e",
+                    "DOI":  "10.3390/app162010002",
+                    "type":  "journal-article",
+                    "created":  {
+                                    "date-parts":  [
+                                                       [
+                                                           2026,
+                                                           10,
+                                                           9
+                                                       ]
+                                                   ],
+                                    "date-time":  "2026-10-09T15:46:26Z",
+                                    "timestamp":  1791560786000
+                                },
+                    "page":  "10002",
+                    "update-policy":  "https://doi.org/10.3390/mdpi_crossmark_policy",
+                    "source":  "Crossref",
+                    "is-referenced-by-count":  0,
+                    "title":  [
+                                  "Physics-Guided Residual Learning for Full-Angular-Domain Scattering Prediction of Coding Metasurfaces"
+                              ],
+                    "prefix":  "10.3390",
+                    "volume":  "16",
+                    "author":  [
+                                   {
+                                       "given":  "Jiahao",
+                                       "family":  "Ma",
+                                       "sequence":  "first",
+                                       "affiliation":  [
+                                                           {
+                                                               "name":  "School of Automation, Nanjing University of Information Science and Technology, Nanjing 210044, China"
+                                                           }
+                                                       ],
+                                       "role":  [
+                                                    {
+                                                        "vocabulary":  "crossref",
+                                                        "role":  "author"
+                                                    },
+                                                    {
+                                                        "role":  "formal-analysis",
+                                                        "vocabulary":  "credit"
+                                                    },
+                                                    {
+                                                        "role":  "investigation",
+                                                        "vocabulary":  "credit"
+                                                    },
+                                                    {
+                                                        "role":  "methodology",
+                                                        "vocabulary":  "credit"
+                                                    },
+                                                    {
+                                                        "role":  "writing-original-draft",
+                                                        "vocabulary":  "credit"
+                                                    }
+                                                ]
+                                   },
+                                   {
+                                       "ORCID":  "https://orcid.org/0000-0002-9091-250X",
+                                       "authenticated-orcid":  false,
+                                       "given":  "Xiaoxing",
+                                       "family":  "Fang",
+                                       "sequence":  "additional",
+                                       "affiliation":  [
+                                                           {
+                                                               "name":  "School of Electronic and Information Engineering, Nanjing University of Information Science and Technology, Nanjing 210044, China"
+                                                           }
+                                                       ],
+                                       "role":  [
+                                                    {
+                                                        "vocabulary":  "crossref",
+                                                        "role":  "author"
+                                                    },
+                                                    {
+                                                        "role":  "conceptualization",
+                                                        "vocabulary":  "credit"
+                                                    },
+                                                    {
+                                                        "role":  "investigation",
+                                                        "vocabulary":  "credit"
+                                                    },
+                                                    {
+                                                        "role":  "validation",
+                                                        "vocabulary":  "credit"
+                                                    },
+                                                    {
+                                                        "role":  "methodology",
+                                                        "vocabulary":  "credit"
+                                                    },
+                                                    {
+                                                        "role":  "supervision",
+                                                        "vocabulary":  "credit"
+                                                    },
+                                                    {
+                                                        "role":  "funding-acquisition",
+                                                        "vocabulary":  "credit"
+                                                    },
+                                                    {
+                                                        "role":  "writing-review-editing",
+                                                        "vocabulary":  "credit"
+                                                    }
+                                                ]
+                                   },
+                                   {
+                                       "given":  "Hang",
+                                       "family":  "Yuan",
+                                       "sequence":  "additional",
+                                       "affiliation":  [
+                                                           {
+                                                               "name":  "Key Laboratory of Electromagnetic Environment Effects and Optoelectronic Engineering, Army Engineering University, Nanjing 210000, China"
+                                                           }
+                                                       ],
+                                       "role":  [
+                                                    {
+                                                        "vocabulary":  "crossref",
+                                                        "role":  "author"
+                                                    },
+                                                    {
+                                                        "role":  "conceptualization",
+                                                        "vocabulary":  "credit"
+                                                    },
+                                                    {
+                                                        "role":  "data-curation",
+                                                        "vocabulary":  "credit"
+                                                    },
+                                                    {
+                                                        "role":  "writing-review-editing",
+                                                        "vocabulary":  "credit"
+                                                    }
+                                                ]
+                                   }
+                               ],
+                    "member":  "1968",
+                    "published-online":  {
+                                             "date-parts":  [
+                                                                [
+                                                                    2026,
+                                                                    10,
+                                                                    9
+                                                                ]
+                                                            ]
+                                         },
+                    "reference":  [
+                                      {
+                                          "key":  "ref_1",
+                                          "doi-asserted-by":  "crossref",
+                                          "first-page":  "e4",
+                                          "DOI":  "10.1017/pma.2023.1",
+                                          "article-title":  "Programmable metamaterials",
+                                          "volume":  "1",
+                                          "author":  "Wu",
+                                          "year":  "2023",
+                                          "journal-title":  "Program. Mater."
+                                      },
+                                      {
+                                          "key":  "ref_2",
+                                          "doi-asserted-by":  "crossref",
+                                          "first-page":  "167771",
+                                          "DOI":  "10.1016/j.ijleo.2021.167771",
+                                          "article-title":  "Designing Approach of Terahertz Broadband Backscattering Reduction Based on Combination of Diffusion and Absorption",
+                                          "volume":  "246",
+                                          "author":  "Rouhi",
+                                          "year":  "2021",
+                                          "journal-title":  "Optik"
+                                      },
+                                      {
+                                          "key":  "ref_3",
+                                          "doi-asserted-by":  "crossref",
+                                          "unstructured":  "Naqvi, A.H., Pham, D.A., Shah, S.I.H., and Lim, S. (2023). 1-Bit Transmission-Type Digital Programmable Coding Metasurface with Multi-Functional Beam-Shaping Capability for Ka-Band Applications. Micromachines, 14.",
+                                          "DOI":  "10.3390/mi14061250"
+                                      },
+                                      {
+                                          "key":  "ref_4",
+                                          "doi-asserted-by":  "crossref",
+                                          "unstructured":  "Wang, J., Chen, Y., Wang, B., Liu, X., Gao, J., Xue, Q., and Huang, X. (2025). A Convolution-Based Coding Metasurface for Wide-Angle Beam Steering for Enhanced 5G Wireless Communications. Materials, 18.",
+                                          "DOI":  "10.3390/ma18091913"
+                                      },
+                                      {
+                                          "key":  "ref_5",
+                                          "doi-asserted-by":  "crossref",
+                                          "first-page":  "9802673",
+                                          "DOI":  "10.34133/2021/9802673",
+                                          "article-title":  "Space-Time-Coding Digital Metasurfaces: Principles and Applications",
+                                          "volume":  "2021",
+                                          "author":  "Zhang",
+                                          "year":  "2021",
+                                          "journal-title":  "Research"
+                                      },
+                                      {
+                                          "key":  "ref_6",
+                                          "doi-asserted-by":  "crossref",
+                                          "first-page":  "6070",
+                                          "DOI":  "10.1038/s41467-025-61409-6",
+                                          "article-title":  "Adaptively Programmable Metasurface for Intelligent Wireless Communications in Complex Environments",
+                                          "volume":  "16",
+                                          "author":  "Yang",
+                                          "year":  "2025",
+                                          "journal-title":  "Nat. Commun."
+                                      },
+                                      {
+                                          "key":  "ref_7",
+                                          "doi-asserted-by":  "crossref",
+                                          "unstructured":  "Yang, F., Xu, F., Liu, C., Yang, X., Wang, Z., Wu, J., and Fu, X. (2022). Two-Dimensional Beam Steering Based on Compact Programmable Coding Metasurface. Appl. Sci., 12.",
+                                          "DOI":  "10.3390/app122211780"
+                                      },
+                                      {
+                                          "key":  "ref_8",
+                                          "doi-asserted-by":  "crossref",
+                                          "unstructured":  "Li, X., Wang, Y., Fan, J., He, J., and Huang, X. (2022). Ultra-Thin/Wide-Band Polarization Conversion Metasurface and Its Applications in Anomalous Reflection and RCS Reduction. Appl. Sci., 12.",
+                                          "DOI":  "10.3390/app12157696"
+                                      },
+                                      {
+                                          "key":  "ref_9",
+                                          "doi-asserted-by":  "crossref",
+                                          "first-page":  "17843",
+                                          "DOI":  "10.1038/s41598-020-74976-z",
+                                          "article-title":  "A Metasurface Composed of 3-Bit Coding Linear Polarization Conversion Elements and Its Application to RCS Reduction of Patch Antenna",
+                                          "volume":  "10",
+                                          "author":  "Kong",
+                                          "year":  "2020",
+                                          "journal-title":  "Sci. Rep."
+                                      },
+                                      {
+                                          "key":  "ref_10",
+                                          "doi-asserted-by":  "crossref",
+                                          "first-page":  "7387",
+                                          "DOI":  "10.1109/TAP.2023.3288549",
+                                          "article-title":  "Unit cell design for aperiodic metasurfaces",
+                                          "volume":  "71",
+                                          "author":  "Budhu",
+                                          "year":  "2023",
+                                          "journal-title":  "IEEE Trans. Antennas Propag."
+                                      },
+                                      {
+                                          "key":  "ref_11",
+                                          "doi-asserted-by":  "crossref",
+                                          "first-page":  "2615",
+                                          "DOI":  "10.1109/TAP.2025.3532123",
+                                          "article-title":  "A convolutional neural network-based method for accurate computation of scattered fields from reconfigurable intelligent surfaces",
+                                          "volume":  "73",
+                                          "author":  "Liu",
+                                          "year":  "2025",
+                                          "journal-title":  "IEEE Trans. Antennas Propag."
+                                      },
+                                      {
+                                          "key":  "ref_12",
+                                          "doi-asserted-by":  "crossref",
+                                          "first-page":  "2102113",
+                                          "DOI":  "10.1002/adom.202102113",
+                                          "article-title":  "Deep convolutional neural networks to predict mutual coupling effects in metasurfaces",
+                                          "volume":  "10",
+                                          "author":  "An",
+                                          "year":  "2022",
+                                          "journal-title":  "Adv. Opt. Mater."
+                                      },
+                                      {
+                                          "key":  "ref_13",
+                                          "doi-asserted-by":  "crossref",
+                                          "first-page":  "40",
+                                          "DOI":  "10.1109/JMMCT.2023.3237699",
+                                          "article-title":  "Deep-learning-based metasurface design method considering near-field couplings",
+                                          "volume":  "8",
+                                          "author":  "Li",
+                                          "year":  "2023",
+                                          "journal-title":  "IEEE J. Multiscale Multiphys. Comput. Tech."
+                                      },
+                                      {
+                                          "key":  "ref_14",
+                                          "doi-asserted-by":  "crossref",
+                                          "first-page":  "4589",
+                                          "DOI":  "10.1109/TAP.2022.3140891",
+                                          "article-title":  "Intelligent beamforming via physics-inspired neural networks on programmable metasurface",
+                                          "volume":  "70",
+                                          "author":  "Li",
+                                          "year":  "2022",
+                                          "journal-title":  "IEEE Trans. Antennas Propag."
+                                      },
+                                      {
+                                          "key":  "ref_15",
+                                          "doi-asserted-by":  "crossref",
+                                          "unstructured":  "Zeng, S., Pu, S., Xia, H., Qin, Q., and Xu, N. (2026). Inverse Design of Chessboard Metasurface for Broadband Monostatic RCS Reduction Based on CNN-KAN with Attention Mechanism. Appl. Sci., 16.",
+                                          "DOI":  "10.3390/app16031320"
+                                      },
+                                      {
+                                          "key":  "ref_16",
+                                          "doi-asserted-by":  "crossref",
+                                          "first-page":  "111995",
+                                          "DOI":  "10.1016/j.isci.2025.111995",
+                                          "article-title":  "Exploring AI in metasurface structures with forward and inverse design",
+                                          "volume":  "28",
+                                          "author":  "Yang",
+                                          "year":  "2025",
+                                          "journal-title":  "iScience"
+                                      },
+                                      {
+                                          "key":  "ref_17",
+                                          "doi-asserted-by":  "crossref",
+                                          "first-page":  "422",
+                                          "DOI":  "10.1038/s42254-021-00314-5",
+                                          "article-title":  "Physics-informed machine learning",
+                                          "volume":  "3",
+                                          "author":  "Karniadakis",
+                                          "year":  "2021",
+                                          "journal-title":  "Nat. Rev. Phys."
+                                      },
+                                      {
+                                          "key":  "ref_18",
+                                          "doi-asserted-by":  "crossref",
+                                          "unstructured":  "Xia, H., Liang, X., Jia, B., Shi, P., Chen, Z., Pu, S., and Xu, N. (2025). Inverse Design of Broadband Artificial Magnetic Conductor Metasurface for Radar Cross Section Reduction Using Simulated Annealing. Appl. Sci., 15.",
+                                          "DOI":  "10.20944/preprints202502.0819.v1"
+                                      },
+                                      {
+                                          "key":  "ref_19",
+                                          "doi-asserted-by":  "crossref",
+                                          "unstructured":  "He, Y., Zhang, Z., Ke, F., Ye, X., Li, M., and Zhang, Y. (2025). Design of Pixelated Wideband Metasurface Absorber Using Transfer Learning and Generative Adversarial Networks. Appl. Sci., 15.",
+                                          "DOI":  "10.3390/app15179642"
+                                      },
+                                      {
+                                          "key":  "ref_20",
+                                          "doi-asserted-by":  "crossref",
+                                          "unstructured":  "Feng, R., Yu, Y., Wu, L., Wang, J., Li, Z., and Tan, Q. (2025). Dynamic Generation of Airy Beam Utilizing the Full-Space Programmable Metasurface. Appl. Sci., 15.",
+                                          "DOI":  "10.3390/app15169177"
+                                      },
+                                      {
+                                          "key":  "ref_21",
+                                          "doi-asserted-by":  "crossref",
+                                          "unstructured":  "Yang, R., Tao, H., Fan, G., Dai, J., and Cheng, Q. (2026). Fast Analysis Method for Far-Field Scattering Characteristics of Coding Metasurfaces Based on the Equivalent Source Principle. Materials, 19.",
+                                          "DOI":  "10.3390/ma19153203"
+                                      },
+                                      {
+                                          "key":  "ref_22",
+                                          "doi-asserted-by":  "crossref",
+                                          "first-page":  "31932",
+                                          "DOI":  "10.1364/OE.401960",
+                                          "article-title":  "Deep learning modeling approach for metasurfaces with high degrees of freedom",
+                                          "volume":  "28",
+                                          "author":  "An",
+                                          "year":  "2020",
+                                          "journal-title":  "Opt. Express"
+                                      },
+                                      {
+                                          "key":  "ref_23",
+                                          "doi-asserted-by":  "crossref",
+                                          "first-page":  "3502",
+                                          "DOI":  "10.1364/AO.487867",
+                                          "article-title":  "Rapid deep-learning-assisted design method for 2-bit coding metasurfaces",
+                                          "volume":  "62",
+                                          "author":  "Fu",
+                                          "year":  "2023",
+                                          "journal-title":  "Appl. Opt."
+                                      },
+                                      {
+                                          "key":  "ref_24",
+                                          "doi-asserted-by":  "crossref",
+                                          "unstructured":  "Abdulkadirov, R., Lyakhov, P., and Nagornov, N. (2023). Survey of Optimization Algorithms in Modern Neural Networks. Mathematics, 11.",
+                                          "DOI":  "10.20944/preprints202304.0648.v1"
+                                      },
+                                      {
+                                          "key":  "ref_25",
+                                          "doi-asserted-by":  "crossref",
+                                          "first-page":  "100",
+                                          "DOI":  "10.1038/s43586-022-00184-w",
+                                          "article-title":  "Principal Component Analysis",
+                                          "volume":  "2",
+                                          "author":  "Greenacre",
+                                          "year":  "2022",
+                                          "journal-title":  "Nat. Rev. Methods Primers"
+                                      }
+                                  ],
+                    "container-title":  [
+                                            "Applied Sciences"
+                                        ],
+                    "original-title":  [
+
+                                       ],
+                    "language":  "en",
+                    "link":  [
+                                 {
+                                     "URL":  "https://www.mdpi.com/2076-3417/16/20/10002/pdf",
+                                     "content-type":  "unspecified",
+                                     "content-version":  "vor",
+                                     "intended-application":  "similarity-checking"
+                                 }
+                             ],
+                    "deposited":  {
+                                      "date-parts":  [
+                                                         [
+                                                             2026,
+                                                             10,
+                                                             9
+                                                         ]
+                                                     ],
+                                      "date-time":  "2026-10-09T16:00:09Z",
+                                      "timestamp":  1791561609000
+                                  },
+                    "score":  1,
+                    "resource":  {
+                                     "primary":  {
+                                                     "URL":  "https://www.mdpi.com/2076-3417/16/20/10002"
+                                                 }
+                                 },
+                    "subtitle":  [
+
+                                 ],
+                    "short-title":  [
+
+                                    ],
+                    "issued":  {
+                                   "date-parts":  [
+                                                      [
+                                                          2026,
+                                                          10,
+                                                          9
+                                                      ]
+                                                  ]
+                               },
+                    "references-count":  25,
+                    "journal-issue":  {
+                                          "issue":  "20",
+                                          "published-online":  {
+                                                                   "date-parts":  [
+                                                                                      [
+                                                                                          2026,
+                                                                                          10
+                                                                                      ]
+                                                                                  ]
+                                                               }
+                                      },
+                    "alternative-id":  [
+                                           "app162010002"
+                                       ],
+                    "URL":  "https://doi.org/10.3390/app162010002",
+                    "relation":  {
+
+                                 },
+                    "ISSN":  [
+                                 "2076-3417"
+                             ],
+                    "issn-type":  [
+                                      {
+                                          "value":  "2076-3417",
+                                          "type":  "electronic"
+                                      }
+                                  ],
+                    "subject":  [
+
+                                ],
+                    "published":  {
+                                      "date-parts":  [
+                                                         [
+                                                             2026,
+                                                             10,
+                                                             9
+                                                         ]
+                                                     ]
+                                  }
+                }
+}

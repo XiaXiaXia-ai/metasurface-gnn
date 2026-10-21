@@ -1,0 +1,77 @@
+www.advancedsciencenews.com
+www.lpr-journal.org
+Figure 3. Forward and inverse design of metasurfaces. a) The near-ﬁeld prediction process of GNN. The metasurface is ﬁrst processed as graph-
+structured data, and then node features in the graph are updated by the graph convolution layer. Subsequently, following 2D convolution layers, the
+network integrates the updated node features and ﬁnalizes the near-ﬁeld prediction of the metasurface. This method is applicable to arrays of arbitrary-
+large size. b) The architecture of GNN for forward design. The GNN mainly consists of one graph convolution layer and six 2D convolution layers. c)
+The pipeline of metasurfaces inverse design. d) The GNN prediction result and CST simulation result of a 5 × 5 metasurface. The Pearson correlation
+coeﬃcients between them is 0.938. e) The GNN prediction result and CST simulation result of a 30 × 30 metasurface. The Pearson correlation coeﬃcients
+between them is 0.870. f) The near-ﬁeld predicted by GNN for the inverse designed array and its CST simulation result.
+Here, we propose a lightweight GNN framework that consists
+of only one graph convolution layer and six 2D convolution lay-
+ers, as shown in Figure 3b. The graph convolution layer adopts
+the idea of message aggregation, where the feature of each node
+is sent as a message to its neighboring nodes, and node features
+are updated accordingly (Supplementary Note S2, Supporting In-
+formation). The feature updating process is as follows. Assume
+node j is a neighbor of node i and their features are denoted as
+nj and ni respectively. First, each node sends its own features as
+messages to its neighboring nodes. Then the message nj received
+by node i is concatenated with its own feature ni and the feature
+of edge between them, which is denoted as eij. After that, they un-
+dergo a transformation by the reduce function f1, becoming the
+coupling eﬀect cij of node j on node i, as Equation (1) shows.
+cij = f1
+(ni, nj, eij
+)
+(1)
+Once the coupling eﬀects from all neighbors of node i are ob-
+tained, they are summed up and concatenated with ni, and then
+undergo another transformation by the apply function f2, ulti-
+mately becoming the new feature of node i, that is n′
+i. This process
+can be represented as:
+n
+′
+i = f2
+(
+ni,
+∑
+cij
+)
+(2)
+In the architecture of GNN, both functions f1 and f2 consist of
+fully connected (FC) layers and activation functions, and they are
+trained using deep learning methods (Supplementary Note S3,
+Supporting Information).
+After training, the graph convolution layer will be able to pre-
+dict the near ﬁeld corresponding to each unit cell according to
+their new features. To obtain the entire near-ﬁeld within the 5 × 5
+window, we can concatenate the near-ﬁelds of each unit cell.
+However, this concatenation may induce noticeable discontinu-
+ities at the junctions of the near ﬁelds. To mitigate this issue, we
+add six layers of 2D convolution layers after the graph convolu-
+tion layer, which act as ﬁlters to smooth the near ﬁelds at the
+junctions. Due to the strategy of concatenating the near-ﬁelds of
+each unit cell, even though we only use unit cells and near-ﬁelds
+within the window as training data, the GNN is able to predict
+the near-ﬁelds of metasurfaces with arbitrary-large size. To em-
+phasize this point, we have randomly generated metasurfaces of
+diﬀerent sizes and utilized GNN to predict their near-ﬁelds, the
+corresponding results are shown in Figure 3d,e. For 5 × 5 and
+30 × 30 metasurfaces, the Pearson correlation coeﬃcients be-
+tween the prediction and simulation results are 0.938 and 0.870,
+respectively. It can be observed that, due to the incorporation of
+coupling information, GNN achieves highly accurate results in
+metasurfaces with diﬀerent sizes.
+2.3. Pipeline of Metasurfaces Inverse Design
+Given the remarkable ﬁtting performance of GNN, it not only
+achieves precise forward prediction of the near-ﬁelds of meta-
+surfaces but also uniquely excels in direct application to in-
+verse design. GNN can reverse-engineer and derive the corre-
+sponding unit cells distribution that matches a speciﬁc near-
+ﬁeld requirement. Figure 3c illustrates the pipeline of the speciﬁc
+Laser Photonics Rev. 2025, 19, 2400979
+© 2024 Wiley-VCH GmbH
+2400979 (4 of 8)
+ 18638899, 2025, 1, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/lpor.202400979 by National University Of Defense, Wiley Online Library on [18/10/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License

@@ -1,0 +1,106 @@
+www.advancedsciencenews.com
+www.lpr-journal.org
+Author Contributions
+O.W. conceived the idea of this research. O.W. performed the simulation
+and experiment. O.W., C.Q., and Z.F. wrote the paper. O.W. designed the
+intelligent metasurface system. All authors shared their insights and con-
+tributed to discussions on the results. C.Q., Z.F., and H.C. supervised the
+project.
+Data Availability Statement
+The data that support the ﬁndings of this study are available from the cor-
+responding author upon reasonable request.
+Keywords
+coupling, graph neural networks, intelligent metasurfaces, inverse design
+Received: June 26, 2024
+Revised: July 27, 2024
+Published online: August 20, 2024
+[1] C. Qian, Y. Jia, Z. Wang, J. Chen, P. Lin, X. Zhu, E. Li, H. Chen, Adv.
+Photonics 2024, 6, 016001.
+[2] T. J. Cui, M. Q. Qi, X. Wan, J. Zhao, Q. Cheng, Light Sci. Appl. 2014, 3,
+e218.
+[3] P. Lin, C. Qian, J. Zhang, J. Chen, X. Zhu, Z. Wang, J. Huangfu, H.
+Chen, Prog. Electromagn. Res. 2023, 178, 83.
+[4] J. Li, P. Yu, S. Zhang, N. Liu, Nat. Commun. 2020, 11, 3574.
+[5] X. Zhu, C. Qian, Y. Jia, J. Chen, Y. Fang, Z. Fan, J. Zhang, D. Li, R.
+Abdi-Ghaleh, H. Chen, Adv. Intell. Syst. 2023, 5, 2300065.
+[6] H. Lu, J. Zhao, B. Zheng, C. Qian, T. Cai, E. Li, H. Chen, Nat. Commun.
+2023, 14, 3301.
+[7] Q. Ma, G. D. Bai, H. B. Jing, C. Yang, L. Li, T. J. Cui, Light Sci. Appl.
+2019, 8, 98.
+[8] W. Zhou, S. Zhu, Z. Zhang, R. Zhu, B. Chen, J. Zhao, X. Wei, H. Lu,
+B. Zheng, Opt. Express 2024, 32, 17911.
+[9] Y. Feng, Q. Hu, K. Qu, W. Yang, Y. Zheng, K. Chen, EMScience 2023,
+1, 1.
+[10] C. Qian, B. Zheng, Y. Shen, L. Jing, E. Li, L. Shen, H. Chen, Nat. Pho-
+tonics 2020, 14, 383.
+[11] H. Zhao, Y. Shuang, M. Wei, T. J. Cui, P. D. Hougne, L. Li, Nat. Com-
+mun. 2020, 11, 3926.
+[12] Z. Fan, C. Qian, Y. Jia, Z. Wang, Y. Ding, D. Wang, L. Tian, E. Li, T. Cai,
+B. Zheng, I. Kaminer, H. Chen, Sci. Adv. 2022, 8, eabn7905.
+[13] Q. Hu, J. Zhao, K. Chen, K. Qu, W. Yang, J. Zhao, T. Jiang, Y. Feng,
+Laser Photonics Rev. 2022, 16, 2100718 .
+[14] G. C. Alexandropoulos, N. Shlezinger, I. Alamzadeh, M. F. Imani, H.
+Zhang, Y. C. Eldar, IEEE Veh. Technol. Mag. 2024, 19, 75.
+[15] Z. Li, X. Tian, C.-W. Qiu, J. S. Ho, Nat. Electron. 2021, 4, 382.
+[16] A. S. Solntsev, G. S. Agarwal, Y. S. Kivshar, Nat. Photonics 2021, 15,
+327.
+[17] M. Gopakumar, G.-Y. Lee, S. Choi, B. Chao, Y. Peng, J. Kim, G.
+Wetzstein, Nature 2024, 629, 791.
+[18] J. Zhang, C. Qian, G. You, T. Wang, Y. Saifullah, R. Abdi-Ghaleh, H.
+Chen, Adv. Sci. 2024, 2308807.
+[19] Z. Liu, D. Zhu, S. P. Rodrigues, K.-T. Lee, W. Cai, Nano Lett. 2018, 18,
+6570.
+[20] Y. Jia, C. Qian, Z. Fan, T. Cai, E.-P. Li, H. Chen, Light Sci. Appl. 2023,
+12, 82.
+[21] Z. Liu, D. Zhu, K.-T. Lee, A. S. Kim, L. Raju, W. Cai, Adv. Mater. 2020,
+32, 1904790.
+[22] M. V. Zhelyeznyakov, S. Brunton, A. Majumdar, ACS Photonics 2021,
+8, 481.
+[23] Y. Jia, Z. Fan, C. Qian, P. Hougne, H. Chen, Laser Photonics Rev. 2024,
+2400063.
+[24] R. Zhu, T. Qiu, J. Wang, S. Sui, C. Hao, T. Liu, Y. Li, M. Feng, A. Zhang,
+C.-W. Qiu, S. Qu, Nat. Commun. 2021, 12, 2974.
+[25] J. Chen, C. Qian, J. Zhang, Y. Jia, H. Chen, Nat. Commun. 2023, 14,
+4872.
+[26] J. Zhang, C. Qian, Z. Fan, J. Chen, E. Li, J. Jin, H. Chen, Adv. Opt.
+Mater. 2022, 10, 2200748.
+[27] M. Zhou, D. Liu, S. W. Belling, H. Cheng, M. A. Kats, S. Fan, M. L.
+Povinelli, Z. Yu, ACS Photonics 2021, 8, 2265.
+[28] S. An, B. Zheng, M. Y. Shalaginov, H. Tang, H. Li, L. Zhou, Y.
+Dong, M. Haerinia, A. M. Agarwal, C. Rivero-Baleine, M. Kang, K. A.
+Richardson, T. Gu, J. Hu, C. Fowler, H. Zhang, Adv. Opt. Mater. 2022,
+10, 2102113.
+[29] J. Noh, Y. Nam, S. Lee, I. Lee, Y. Kim, J. Lee, J. Rho, Photonics Nanos-
+truct. 2022, 52, 101071.
+[30] K. Xu, W. Hu, J. Leskovec, S. Jegelka, ArXiv 1810.00826 2018.
+[31] Z. Guo, H. He, D. Katabi, presented at Proceedings of the 36th Inter-
+national Conference on Machine Learning, Long Beach, California,
+2019, 7364-7373.
+[32] K. Han, Y. Wang, J. Guo, Y. Tang, E. Wu, ArXiv 2206.00272 2022.
+[33] S. Wu, F. Sun, W. Zhang, X. Xie, B. Cui, ACM Comput. Surv. 2022, 55,
+1.
+[34] Z. Yang, W. Zhong, L. Zhao, C. Yu-Chian Chen, Chem. Sci. 2022, 13,
+816.
+[35] S. Chen, A. Wulamu, Q. Zou, H. Zheng, L. Wen, X. Guo, H. Chen, T.
+Zhang, Y. Zhang, J. Mol. Graph. Model. 2023, 123, 108506.
+[36] E. Khoram, Z. Wu, Y. Qu, M. Zhou, Z. Yu, ACS Photonics 2023, 10, 892
+.
+[37] X. He, K. Deng, X. Wang, Y. Li, Y. Zhang, M. Wang, ArXiv:2002.02126,
+2020.
+[38] S. Peng, K. Sugiyama, T. Mine, arXiv:2208.12689 2022.
+[39] Z. Wu, Z. Yu, APL Photonics 2021, 6, 071301.
+[40] G. Qu, W. Yang, Q. Song, Y. Liu, C.-W. Qiu, J. Han, D.-P. Tsai, S. Xiao,
+Nat. Commun. 2020, 11, 5484.
+[41] I. Kim, J. Jang, G. Kim, J. Lee, T. Badloe, J. Mun, J. Rho, Nat. Commun.
+2021, 12, 3614.
+[42] L. Jin, J. Xie, B. Pan, G. Luo, Prog. Electromagn. Res. 2023, 178, 103 .
+[43] R. Cornelius, T. Salmeron-Ruiz, F. Saccardi, L. Foged, D. Heberling,
+M. Sierra-Castaner, IEEE Antennas Propag. Mag. 2014, 56, 252.
+[44] K. Phaebua, T. Lertwiriyaprapa, D. Torrungrueng, presented at 2021
+9th iEECON, IEEE, Pattaya, Thailand, 535–538, 2021.
+[45] C. Balanis, Antenna Theory: Analysis and Design, 4th ed. Wiley, Wein-
+heim, Germany, 2016, pp. 684–693.
+Laser Photonics Rev. 2025, 19, 2400979
+© 2024 Wiley-VCH GmbH
+2400979 (8 of 8)
+ 18638899, 2025, 1, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/lpor.202400979 by National University Of Defense, Wiley Online Library on [18/10/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License

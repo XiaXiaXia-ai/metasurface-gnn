@@ -1,0 +1,117 @@
+RESEARCH ARTICLE
+www.lpr-journal.org
+General Characterization of Intelligent Metasurfaces with
+Graph Coupling Network
+Ouling Wu, Chao Qian,* Zhixiang Fan,* Xiaoyue Zhu, and Hongsheng Chen*
+Intelligent metasurfaces, as the next-generation of metasurfaces, have
+emerged as a versatile artiﬁcial electromagnetic (EM) medium capable of
+adaptively manipulating wave-matter interactions, especially in the
+construction of EM space integration and the analogy of wave-based neural
+networks. However, current computational landscape for intelligent
+metasurfaces relies either on time-consuming full-wave numerical
+simulations with excessive computational complexity or on
+application-limited physical models that are diﬃcult to consider the coupling
+eﬀects. Here, a universal graph neural network (GNN) framework is
+introduced, incorporating the elusive coupling eﬀects inside metasurfaces,
+enabling rapid and precise characterization with arbitrary-large size. This
+framework exhibits exceptional compatibility with physical models, thereby
+signiﬁcantly expanding the realm of potential design scenarios. By harnessing
+the principles of diﬀraction theory and near-to-far transformation algorithms,
+highly accurate modeling of the scattered ﬁelds emanating from metasurfaces
+is achieved. Through microwave experiments on intelligent metasurfaces, the
+eﬃcacy of GNN in real-world scenarios is eﬀectively demonstrated. The
+utilization of topological strategies to characterize intelligent metasurfaces
+marks a major leap toward the next-generation metasurfaces, promising
+transformative advancements across various applications.
+1. Introduction
+Intelligent metasurfaces are smart platforms capable of ma-
+nipulating
+wave-information-matter
+interactions
+without
+O. Wu, C. Qian, Z. Fan, X. Zhu, H. Chen
+ZJU-UIUC Institute
+Interdisciplinary Center for Quantum Information
+State Key Laboratory of Extreme Photonics and Instrumentation
+Zhejiang University
+Hangzhou 310027, China
+E-mail: chaoq@intl.zju.edu.cn;zxfan1831@163.com;
+hansomchen@zju.edu.cn
+O.Wu, C.Qian,Z.Fan, X.Zhu,H.Chen
+ZJU-Hangzhou Global ScienceandTechnology Innovation Center
+Key Lab.of AdvancedMicro/Nano ElectronicDevices & Smart Systems of
+Zhejiang
+Zhejiang University
+Hangzhou 310027, China
+O.Wu, C.Qian,Z.Fan, X.Zhu,H.Chen
+Jinhua Instituteof Zhejiang University
+Zhejiang University
+Jinhua 321099,China
+The ORCID identiﬁcation number(s) for the author(s) of this article
+can be found under https://doi.org/10.1002/lpor.202400979
+DOI: 10.1002/lpor.202400979
+manual intervention, which allows for
+the functional customization of EM
+wave that are unattainable in nature.[1–9]
+By
+synergizing
+reconﬁgurable
+meta-
+surfaces
+with
+smart
+algorithms,
+in-
+telligent metasurfaces can facilitate a
+myriad of applications, including in-
+visibility cloaks,[10] high-speed wireless
+communication,[11–14]
+bioelectronics,[15]
+quantum photonics,[16] and augmented
+reality eyepieces.[17]
+While numerical
+simulation methods like ﬁnite-diﬀerence
+time-domain (FDTD) serve as eﬃcient
+tools in designing intelligent metasur-
+faces, because of their inherent defects
+of trial-and-error mode that heavily rely
+on computational resources and expert
+experience, ﬁne-tuning geometrical con-
+ﬁgurations and case-by-case simulations
+remain inevitable. Against this backdrop,
+the unparalleled success of deep learning
+in computer vision and natural language
+processing
+has
+revitalized
+emerging
+disciplines like microscopy and materi-
+als science. By virtue of its data-driven
+approach, deep learning has emerged
+as a potent force in both forward and
+inverse metasurface design,[18–26] not only oﬀering enhanced ef-
+ﬁciency but greatly reducing the reliance on specialized exper-
+tise and time-consuming simulations. Integrating the multifunc-
+tional controlling platforms with deep learning, intelligent meta-
+surfaces provide a transformative opportunity to adaptively con-
+trol the wave-matter interactions.
+Due to the critical importance of precision and reliability for
+intelligent metasurfaces, the coupling eﬀects arising from their
+physical structures cannot be ignored, especially for large-scale
+or strongly coupled arrays.[27] Nevertheless, it poses a formidable
+challenge to accurately characterize and understand metasur-
+faces coupling mechanisms, particularly in high-sensitivity re-
+quired applications like stealth and radar systems. Most theoret-
+ical methods, such as antenna theory and geometrical optics, are
+based on the assumption that each unit is independent, neglect-
+ing coupling among them. While traditional deep neural net-
+works can implicitly incorporate the coupling eﬀects, their per-
+formances are often constrained by the characteristics of training
+data due to the lack of physical guidance, leading to limited gener-
+alization and adaptability to the diverse physical properties inher-
+ent in metasurface design.[28,29] All these obstacles boil down to
+a high demand for accurately characterizing intelligent metasur-
+faces. In recent years, GNN has showcased remarkable success
+Laser Photonics Rev. 2025, 19, 2400979
+© 2024 Wiley-VCH GmbH
+2400979 (1 of 8)

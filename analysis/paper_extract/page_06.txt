@@ -1,0 +1,56 @@
+www.advancedsciencenews.com
+www.lpr-journal.org
+Figure 4. Prediction of scattered ﬁelds at arbitrary distances and far-ﬁelds. a) Combination of GNN with physical models. GNN can predict the near-
+ﬁelds of metasurfaces at half a wavelength position. By combining with the diﬀraction method, it can derive the scattered ﬁelds at any distance. Through
+near-to-far transformation algorithm, the near-ﬁeld can be further extended to far-ﬁeld radiation pattern. b) The scattered ﬁelds prediction results at
+20 wavelengths positions computed by the individual diﬀraction method, GNN method, and CST simulation method, respectively. c) The scattered
+ﬁeld prediction results at 30 wavelengths positions computed by the individual diﬀraction method, GNN method, and CST simulation method, respec-
+tively. (d) The comparison of far-ﬁeld results in E-plane between diﬀraction method, GNN method, and CST simulation result. The Pearson correlation
+coeﬃcients 𝜌are 0.702 and 0.878 respectively.
+2.6. Intelligent Metasurfaces Experiment with Coupling
+Involvement
+To further verify the performance of GNN in real scenarios,
+we have fabricated an intelligent metasurface comprising of
+20 × 20-unit cells. The intelligent metasurface system consists
+of the metasurface, control circuits, ﬁeld programmable gate ar-
+ray (FPGA), and computer (Supplementary Note S5, Support-
+ing Information). The FPGA can output serial signals of high
+and low voltage levels through programming and then the con-
+trol circuit is responsible for converting them into parallel for-
+mat. The metasurface is processed using conventional printed
+circuit board (PCB) techniques, with the substrate material being
+F4B (the dielectric constant of 2.65). Each unit cell of metasur-
+face is equipped with an SMP1320 diode, which can be indepen-
+dently voltage-controlled through the control circuit. The diode
+exhibits diﬀerent equivalent capacitances when it is in “on” and
+“oﬀ” stages, which enables signiﬁcant variations in the reﬂection
+coeﬃcient of the unit cell at the target frequency.
+We have conducted the experiment in a microwave anechoic
+chamber, and Figure 5c shows the near-ﬁeld measurement en-
+vironment. The near-ﬁeld information of the metasurface at 5.9
+GHz is collected using the near-ﬁeld scanning system, and the
+scanning plane is half a wavelength away from the metasurface.
+We collected the data by changing the reﬂection response of the
+metasurface using FPGA and control circuits. After the GNN is
+trained, we have utilized it to predict the near-ﬁeld of the metasur-
+face and the results are shown in Figure 5d. We can see that the
+near-ﬁelds predicted by GNN closely align with the experimental
+results, demonstrating the eﬀectiveness of GNN in practical ap-
+plications. The slight discrepancies between GNN prediction re-
+sults and experimental results may be caused by the interference
+of background waves and the fabrication errors of the intelligent
+metasurface.
+3. Conclusion
+In summary, we have proposed a rapid and precise approach uti-
+lizing the GNN framework to analyze coupling eﬀects among
+unit cells, thus enabling precise characterization of intelligent
+metasurfaces. This methodology is applicable to arbitrary-large
+metasurfaces, while integrating with physical principles, exhibit-
+ing remarkable scalability. Furthermore, as the conﬁgurations
+of unit cells are represented as node features in the graph-
+structured data, diﬀerent parameters that describe the conﬁgu-
+rations of units can be used as node features to accommodate
+Laser Photonics Rev. 2025, 19, 2400979
+© 2024 Wiley-VCH GmbH
+2400979 (6 of 8)
+ 18638899, 2025, 1, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/lpor.202400979 by National University Of Defense, Wiley Online Library on [18/10/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License

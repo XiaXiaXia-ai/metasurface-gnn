@@ -1,0 +1,66 @@
+www.advancedsciencenews.com
+www.lpr-journal.org
+Figure 1. Comparison between the traditional method and GNN method. Traditional methods, such as Rayleigh–Sommerfeld diﬀraction based on
+physical processes, tend to view metasurfaces merely as matrix data, overlooking the intricate coupling among unit cells, which leads to considerable
+inaccuracies in near-ﬁeld results. In contrast, by treating the spatial and physical relationships of metasurfaces as topological graphs, the GNN method
+explicitly accounts for the coupling among units and integrates it into the network computations, resulting in more precise outcomes.
+in domains such as social networks, recommender systems, and
+drug molecule development.[30–35] By incorporating relational in-
+formation among data into the network computational process,
+GNN can leverage the topological characteristics of data to learn
+general rules among them rather than simple input-to-output
+mapping, thus exhibiting robust generalization capabilities. This
+burgeoning technology holds immense potential in overcoming
+obstacles to accurately characterizing and understanding meta-
+surface coupling mechanisms.[36]
+In this work, we construct a lightweight and powerful GNN to
+accurately characterize arbitrary-large intelligent metasurfaces by
+involving the coupling eﬀects among unit cells (Figure 1). Based
+on the basic near-ﬁeld prediction at a given position, the scattered
+ﬁeld at any distance and far-ﬁeld pattern of a metasurface can be
+easily derived by combining the output of GNN with diﬀraction
+theory and near-to-far transformation algorithms. We train the
+network using full-wave simulation data and validate the reliabil-
+ity in near-ﬁeld prediction. Besides, GNN can also be used for
+inverse design. By connecting GNN with gradient descent algo-
+rithm, we have developed an inverse design pipeline for near-
+ﬁeld hologram imaging and utilized it to manipulate the meta-
+surface to generate a triangular-shaped near-ﬁeld. As an experi-
+mental veriﬁcation, we have designed and fabricated an intelli-
+gent metasurface to validate the eﬀects of GNN in real-world sce-
+narios. The alignment between experimental and predicted near-
+ﬁelds demonstrates the validity of GNN in practical applications.
+Our work opens a new avenue for accurately characterizing intel-
+ligent metasurfaces and makes a big step for the next-generation
+intelligent metasurfaces and associated applications.
+2. Results
+2.1. Characterizing Coupling Eﬀects with GNN
+As a data-driven method, GNN necessitates original data that en-
+capsulates coupling eﬀects, whereas full-wave simulations oﬀer
+the capability to numerically compute the intricate coupling in-
+teractions among unit cells. In the modeling process of metasur-
+faces, we establish a reﬂective metasurface model in Computer
+Simulation Technology (CST) Microwave Studio with 30 × 30-
+unit cells. As shown in Figure 2a, each unit cell has a width of
+14 mm, and the substrate material is FR4 with a thickness of
+1.5 mm. By adjusting the radius of top round metal patch from
+3.0 to 4.0 mm, the reﬂected phase almost covers 0°–360°, while
+the reﬂected amplitude remains high at the target frequency of
+10 GHz. After setting the incident wave as an x-polarized plane
+wave, we conduct the full-wave simulation and subsequently
+gather the electric ﬁeld (E-ﬁeld) data on the plane positioned at
+half a wavelength away from the metasurface.
+Due to the mutual coupling among unit cells, the near ﬁeld
+above each unit cell is not only determined by itself, but also
+aﬀected by the surrounding unit cells. As one of the most ad-
+vanced techniques for addressing deep learning problems in
+non-Euclidean space, GNN can eﬀectively utilize the topological
+characteristics of graph-structured data to compute relational in-
+formation between nodes, which allows for the quantitative cal-
+culation of the coupling eﬀects of surrounding unit cells on the
+central unit cells, enabling precise predictions of its near-ﬁeld. In
+order to apply GNN to metasurfaces, the metasurfaces should be
+Laser Photonics Rev. 2025, 19, 2400979
+© 2024 Wiley-VCH GmbH
+2400979 (2 of 8)
+ 18638899, 2025, 1, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/lpor.202400979 by National University Of Defense, Wiley Online Library on [18/10/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License

@@ -1,0 +1,653 @@
+=== PAGE 1 ===
+RESEARCH ARTICLE
+www.lpr-journal.org
+GeneralCharacterizationofIntelligentMetasurfaceswith
+GraphCouplingNetwork
+Ouling Wu, Chao Qian,* Zhixiang Fan,* Xiaoyue Zhu, and Hongsheng Chen*
+Intelligentmetasurfaces,asthenext-generationofmetasurfaces,have
+emergedasaversatileartiﬁcialelectromagnetic(EM)mediumcapableof
+adaptivelymanipulatingwave-matterinteractions,especiallyinthe
+constructionofEMspaceintegrationandtheanalogyofwave-basedneural
+networks.However,currentcomputationallandscapeforintelligent
+metasurfacesrelieseitherontime-consumingfull-wavenumerical
+simulationswithexcessivecomputationalcomplexityoron
+application-limitedphysicalmodelsthatarediﬃculttoconsiderthecoupling
+eﬀects.Here,auniversalgraphneuralnetwork(GNN)frameworkis
+introduced,incorporatingtheelusivecouplingeﬀectsinsidemetasurfaces,
+enablingrapidandprecisecharacterizationwitharbitrary-largesize.This
+frameworkexhibitsexceptionalcompatibilitywithphysicalmodels,thereby
+signiﬁcantlyexpandingtherealmofpotentialdesignscenarios.Byharnessing
+theprinciplesofdiﬀractiontheoryandnear-to-fartransformationalgorithms,
+highlyaccuratemodelingofthescatteredﬁeldsemanatingfrommetasurfaces
+isachieved.Throughmicrowaveexperimentsonintelligentmetasurfaces,the
+eﬃcacyofGNNinreal-worldscenariosiseﬀectivelydemonstrated.The
+utilizationoftopologicalstrategiestocharacterizeintelligentmetasurfaces
+marksamajorleaptowardthenext-generationmetasurfaces,promising
+transformativeadvancementsacrossvariousapplications.
+1.Introduction
+Intelligent metasurfaces are smart platforms capable of ma-
+nipulating wave-information-matter interactions without
+O.Wu,C.Qian,Z.Fan,X.Zhu,H.Chen
+ZJU-UIUCInstitute
+InterdisciplinaryCenterforQuantumInformation
+StateKeyLaboratoryofExtremePhotonicsandInstrumentation
+ZhejiangUniversity
+Hangzhou310027,China
+E-mail:chaoq@intl.zju.edu.cn;zxfan1831@163.com;
+hansomchen@zju.edu.cn
+O.Wu,C.Qian,Z.Fan,X.Zhu,H.Chen
+ZJU-HangzhouGlobalScienceandTechnologyInnovationCenter
+KeyLab.ofAdvancedMicro/NanoElectronicDevices&SmartSystemsof
+Zhejiang
+ZhejiangUniversity
+Hangzhou310027,China
+O.Wu,C.Qian,Z.Fan,X.Zhu,H.Chen
+JinhuaInstituteofZhejiangUniversity
+ZhejiangUniversity
+Jinhua321099,China
+The ORCID identiﬁcation number(s) for the author(s) of this article
+canbefoundunder https://doi.org/10.1002/lpor.202400979
+DOI:10.1002/lpor.202400979
+manual intervention, which allows for
+the functional customization of EM
+wave that are unattainable in nature.[1–9]
+By synergizing reconﬁgurable meta-
+surfaces with smart algorithms, in-
+telligent metasurfaces can facilitate a
+myriad of applications, including in-
+visibility cloaks,[10] high-speed wireless
+communication,[11–14] bioelectronics,[15]
+quantum photonics,[16] and augmented
+reality eyepieces.[17] While numerical
+simulationmethodslikeﬁnite-diﬀerence
+time-domain (FDTD) serve as eﬃcient
+tools in designing intelligent metasur-
+faces, because of their inherent defects
+of trial-and-error mode that heavily rely
+on computational resources and expert
+experience, ﬁne-tuning geometrical con-
+ﬁgurations and case-by-case simulations
+remaininevitable.Againstthisbackdrop,
+theunparalleledsuccessofdeeplearning
+incomputervisionandnaturallanguage
+processing has revitalized emerging
+disciplines like microscopy and materi-
+als science. By virtue of its data-driven
+approach, deep learning has emerged
+as a potent force in both forward and
+inversemetasurfacedesign, [18–26] notonlyoﬀeringenhancedef-
+ﬁciency but greatly reducing the reliance on specialized exper-
+tiseandtime-consumingsimulations.Integratingthemultifunc-
+tionalcontrollingplatformswithdeeplearning,intelligentmeta-
+surfaces provide a transformative opportunity to adaptively con-
+trolthewave-matterinteractions.
+Due to the critical importance of precision and reliability for
+intelligent metasurfaces, the coupling eﬀects arising from their
+physical structures cannot be ignored, especially for large-scale
+orstronglycoupledarrays. [27] Nevertheless,itposesaformidable
+challenge to accurately characterize and understand metasur-
+faces coupling mechanisms, particularly in high-sensitivity re-
+quiredapplicationslikestealthandradarsystems.Mosttheoret-
+icalmethods,suchasantennatheoryandgeometricaloptics,are
+basedontheassumptionthateachunitisindependent,neglect-
+ing coupling among them. While traditional deep neural net-
+works can implicitly incorporate the coupling eﬀects, their per-
+formancesareoftenconstrainedbythecharacteristicsoftraining
+dataduetothelackofphysicalguidance,leadingtolimitedgener-
+alizationandadaptabilitytothediversephysicalpropertiesinher-
+ent in metasurface design.[28,29] All these obstacles boil down to
+ahighdemandforaccuratelycharacterizingintelligentmetasur-
+faces. In recent years, GNN has showcased remarkable success
+Laser Photonics Rev.2025,19,2400979 ©2024Wiley-VCHGmbH2400979(1of8)
+
+=== PAGE 2 ===
+www.advancedsciencenews.com www.lpr-journal.org
+Figure 1.Comparison between the traditional method and GNN method. Traditional methods, such as Rayleigh–Sommerfeld diﬀraction based on
+physical processes, tend to view metasurfaces merely as matrix data, overlooking the intricate coupling among unit cells, which leads to considerable
+inaccuraciesinnear-ﬁeldresults.Incontrast,bytreatingthespatialandphysicalrelationshipsofmetasurfacesastopologicalgraphs,theGNNm ethod
+explicitlyaccountsforthecouplingamongunitsandintegratesitintothenetworkcomputations,resultinginmorepreciseoutcomes.
+indomainssuchassocialnetworks,recommendersystems,and
+drugmoleculedevelopment. [30–35] Byincorporatingrelationalin-
+formation among data into the network computational process,
+GNNcanleveragethetopologicalcharacteristicsofdatatolearn
+general rules among them rather than simple input-to-output
+mapping,thusexhibitingrobustgeneralizationcapabilities.This
+burgeoningtechnologyholdsimmensepotentialinovercoming
+obstacles to accurately characterizing and understanding meta-
+surfacecouplingmechanisms. [36]
+Inthiswork,weconstructalightweightandpowerfulGNNto
+accuratelycharacterizearbitrary-largeintelligentmetasurfacesby
+involvingthecouplingeﬀectsamongunitcells( Figure1).Based
+onthebasicnear-ﬁeldpredictionatagivenposition,thescattered
+ﬁeldatanydistanceandfar-ﬁeldpatternofametasurfacecanbe
+easily derived by combining the output of GNN with diﬀraction
+theory and near-to-far transformation algorithms. We train the
+networkusingfull-wavesimulationdataandvalidatethereliabil-
+ity in near-ﬁeld prediction. Besides, GNN can also be used for
+inverse design. By connecting GNN with gradient descent algo-
+rithm, we have developed an inverse design pipeline for near-
+ﬁeld hologram imaging and utilized it to manipulate the meta-
+surface to generate a triangular-shaped near-ﬁeld. As an experi-
+mental veriﬁcation, we have designed and fabricated an intelli-
+gentmetasurfacetovalidatetheeﬀectsofGNNinreal-worldsce-
+narios.Thealignmentbetweenexperimentalandpredictednear-
+ﬁeldsdemonstratesthevalidityofGNNinpracticalapplications.
+Ourworkopensanewavenueforaccuratelycharacterizingintel-
+ligentmetasurfacesandmakesabigstepforthenext-generation
+intelligentmetasurfacesandassociatedapplications.
+2.Results
+2.1.CharacterizingCouplingEﬀectswithGNN
+Asadata-drivenmethod,GNNnecessitatesoriginaldatathaten-
+capsulates coupling eﬀects, whereas full-wave simulations oﬀer
+the capability to numerically compute the intricate coupling in-
+teractionsamongunitcells.Inthemodelingprocessofmetasur-
+faces, we establish a reﬂective metasurface model in Computer
+Simulation Technology (CST) Microwave Studio with 30× 30-
+unit cells. As shown inFigure 2a, each unit cell has a width of
+14 mm, and the substrate material is FR4 with a thickness of
+1.5 mm. By adjusting the radius of top round metal patch from
+3.0 to 4.0 mm, the reﬂected phase almost covers 0°–360°, while
+the reﬂected amplitude remains high at the target frequency of
+10 GHz. After setting the incident wave as an x-polarized plane
+wave, we conduct the full-wave simulation and subsequently
+gather the electric ﬁeld (E-ﬁeld) data on the plane positioned at
+halfawavelengthawayfromthemetasurface.
+Due to the mutual coupling among unit cells, the near ﬁeld
+above each unit cell is not only determined by itself, but also
+aﬀected by the surrounding unit cells. As one of the most ad-
+vanced techniques for addressing deep learning problems in
+non-Euclideanspace,GNNcaneﬀectivelyutilizethetopological
+characteristicsofgraph-structureddatatocomputerelationalin-
+formation between nodes, which allows for the quantitative cal-
+culation of the coupling eﬀects of surrounding unit cells on the
+centralunitcells,enablingprecisepredictionsofitsnear-ﬁeld.In
+ordertoapplyGNNtometasurfaces,themetasurfacesshouldbe
+Laser Photonics Rev.2025,19,2400979 ©2024Wiley-VCHGmbH2400979(2of8)
+ 18638899, 2025, 1, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/lpor.202400979 by National University Of Defense, Wiley Online Library on [18/10/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+=== PAGE 3 ===
+www.advancedsciencenews.com www.lpr-journal.org
+Figure2. Couplingmechanismofunitcellsandslidingwindowmethod.a)Thereﬂectivephaseresponseoftheunitcell,itcanbechangedbymodulating
+theradiusoftheroundmetalpatch.b)Near-ﬁeldcouplingeﬀectsinducedbyunitcells.Thenear-ﬁeldofaunitcellcanbeinﬂuencedduetothecoupling
+eﬀectsc from surrounding unit cells. Considering that the coupling eﬀects are essentially manifestations of EM forces, they should follow an inverse
+squarerelationshipwithdistance d.(c)Slidingwindowmethodfordatacollection.Weconsidercouplingeﬀectswithinthespatialdistanceoftwo-unit
+cells,soeachunitcellcanbeinﬂuencedbythesurrounding12-unitcells.Theredwindowcollectsnear-ﬁelddatawhilethebluewindowgathersstruct ure
+informationofunitcells.Bothwindowsmovesimultaneouslywithastepsizeequaltooneunitcellwidth.
+transformed into graph-structured data ﬁrst. In this work, each
+unit cell is treated as a node in the graph, and the radius of its
+top round metal patch serves as the node feature. Moreover, we
+treatcouplingeﬀectsasessentiallymanifestationsofEMforces,
+which should be weaken with increased distance and follow an
+inversesquarerelationship.So,thereshouldbeanedgebetween
+two-unitcellswithcouplingeﬀects,andtheinversesquarerela-
+tionshipwithdistanceisdeﬁnedastheedgefeature.Duetothe
+inversesquaredecayrate,thecouplingeﬀectssharplydecreaseas
+the distance between the two-unit cells increases. To reduce the
+complexityofthegraphstructureandacceleratethelearningpro-
+cess,thecouplinggeneratedbyunitcellsatgreaterdistancescan
+be ignored. Here, we only consider coupling eﬀects within the
+spatial distance of two-unit cells (Supplementary NoteS1,S u p -
+portingInformation).
+To fully unearth the hidden patterns within the data, a large
+amount of data is required for the training of GNN. Typically,
+the simulation data pertaining to each metasurface array is re-
+garded as an integrated entity, rendering it inseparable. But for
+largearrays,thispracticemakesittootime-consumingandeven
+impractical to collect enough data to train the neural network.
+Toaddressthisproblem,weemploytheslidingwindowmethod
+thateﬀectivelypartitionsthedataoflargearraysforeﬃcientpro-
+cessing.AsillustratedinFigure 2c,weusea5 ×5redwindowto
+slideoverthemetasurface,samplingthefeaturesofunitcellsand
+near-ﬁeldateachstep,resultinginasetof5 ×5featuresofunit
+cells and their corresponding near-ﬁeld. The window size is set
+as5 ×5sothatalltheunitcellsthatcaninﬂuencethecentralunit
+cellscanbeincluded,asweconsiderthecouplingwithinthedis-
+tanceoftwo-unitcells.Furthermore,sincetheunitcellsoutside
+thewindowalsohavemutualcouplingeﬀectsontheunitcellsin-
+side,whereasthesamplingprocessdoesnotcollectinformation
+fromtheunitcellsoutsidethewindow,thenetworkmayoverlook
+these coupling eﬀects. To avoid neglecting the inﬂuence of unit
+cellsoutsidethewindowontheinsideunitcells,weusea9 ×9
+bluewindowtosamplethefeaturesofunitcellsandonlysample
+the near ﬁeld within the central 5× 5 red window. The sliding
+windowmethodallowsustoobtainsuﬃcientdatabysimulating
+onlyasmallnumberofarrays.
+2.2.ArchitectureofGNN
+The performance of GNN hinges on their well-crafted architec-
+tures, particularly the pivotal graph convolution layer, which is
+responsible for eﬃciently processing graph-structured data and
+extracting intricate features. While stacking multiple layers of
+graph convolution layers typically improves the performance of
+thenetwork,italsomakesthemodelmorecomplexandincreases
+thediﬃcultyoftraining.Therefore,achievingbetterperformance
+with fewer network parameters is one of the standard for evalu-
+atingtheeﬀectivenessofGNN. [37,38]
+Laser Photonics Rev.2025,19,2400979 ©2024Wiley-VCHGmbH2400979(3of8)
+ 18638899, 2025, 1, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/lpor.202400979 by National University Of Defense, Wiley Online Library on [18/10/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+=== PAGE 4 ===
+www.advancedsciencenews.com www.lpr-journal.org
+Figure 3. Forward and inverse design of metasurfaces. a) The near-ﬁeld prediction process of GNN. The metasurface is ﬁrst processed as graph-
+structured data, and then node features in the graph are updated by the graph convolution layer. Subsequently, following 2D convolution layers, the
+networkintegratestheupdatednodefeaturesandﬁnalizesthenear-ﬁeldpredictionofthemetasurface.Thismethodisapplicabletoarraysofarbitr ary-
+large size. b) The architecture of GNN for forward design. The GNN mainly consists of one graph convolution layer and six 2D convolution layers. c)
+The pipeline of metasurfaces inverse design. d) The GNN prediction result and CST simulation result of a 5×5 metasurface. The Pearson correlation
+coeﬃcientsbetweenthemis0.938.e)TheGNNpredictionresultandCSTsimulationresultofa30 ×30metasurface.ThePearsoncorrelationcoeﬃcients
+betweenthemis0.870.f)Thenear-ﬁeldpredictedbyGNNfortheinversedesignedarrayanditsCSTsimulationresult.
+Here,weproposealightweightGNNframeworkthatconsists
+of only one graph convolution layer and six 2D convolution lay-
+ers, as shown inFigure3b. The graph convolution layer adopts
+theideaofmessageaggregation,wherethefeatureofeachnode
+issentasamessagetoitsneighboringnodes,andnodefeatures
+areupdatedaccordingly(SupplementaryNote S2,SupportingIn-
+formation). The feature updating process is as follows. Assume
+node j is a neighbor of nodei and their features are denoted as
+nj and ni respectively. First, each node sends its own features as
+messagestoitsneighboringnodes.Thenthemessage nj received
+bynode iisconcatenatedwithitsownfeature ni andthefeature
+ofedgebetweenthem,whichisdenotedas eij.Afterthat,theyun-
+dergo a transformation by the reduce functionf1, becoming the
+couplingeﬀectcij ofnode jonnode i,asEquation( 1)shows.
+cij = f1
+(ni,n j,e ij
+) (1)
+Oncethecouplingeﬀectsfromallneighborsofnode iareob-
+tained,theyaresummedupandconcatenatedwith ni,andthen
+undergo another transformation by the apply functionf2, ulti-
+matelybecomingthenewfeatureofnode i,thatis n′
+i.Thisprocess
+canberepresentedas:
+n
+′
+i = f2
+(
+ni,
+∑
+cij
+)
+(2)
+InthearchitectureofGNN,bothfunctions f1 and f2 consistof
+fullyconnected(FC)layersandactivationfunctions,andtheyare
+trained using deep learning methods (Supplementary NoteS3,
+SupportingInformation).
+Aftertraining,thegraphconvolutionlayerwillbeabletopre-
+dict the near ﬁeld corresponding to each unit cell according to
+theirnewfeatures.Toobtaintheentirenear-ﬁeldwithinthe5 ×5
+window, we can concatenate the near-ﬁelds of each unit cell.
+However, this concatenation may induce noticeable discontinu-
+itiesatthejunctionsofthenearﬁelds.Tomitigatethisissue,we
+add six layers of 2D convolution layers after the graph convolu-
+tion layer, which act as ﬁlters to smooth the near ﬁelds at the
+junctions.Duetothestrategyofconcatenatingthenear-ﬁeldsof
+eachunitcell,eventhoughweonlyuseunitcellsandnear-ﬁelds
+within the window as training data, the GNN is able to predict
+the near-ﬁelds of metasurfaces with arbitrary-large size. To em-
+phasizethispoint,wehaverandomlygeneratedmetasurfacesof
+diﬀerent sizes and utilized GNN to predict their near-ﬁelds, the
+corresponding results are shown in Figure3d,e.F o r5× 5a n d
+30× 30 metasurfaces, the Pearson correlation coeﬃcients be-
+tweenthepredictionandsimulationresultsare0.938and0.870,
+respectively. It can be observed that, due to the incorporation of
+coupling information, GNN achieves highly accurate results in
+metasurfaceswithdiﬀerentsizes.
+2.3.PipelineofMetasurfacesInverseDesign
+Given the remarkable ﬁtting performance of GNN, it not only
+achieves precise forward prediction of the near-ﬁelds of meta-
+surfaces but also uniquely excels in direct application to in-
+verse design. GNN can reverse-engineer and derive the corre-
+sponding unit cells distribution that matches a speciﬁc near-
+ﬁeldrequirement.Figure3cillustratesthepipelineofthespeciﬁc
+Laser Photonics Rev.2025,19,2400979 ©2024Wiley-VCHGmbH2400979(4of8)
+ 18638899, 2025, 1, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/lpor.202400979 by National University Of Defense, Wiley Online Library on [18/10/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+=== PAGE 5 ===
+www.advancedsciencenews.com www.lpr-journal.org
+inverse design process. First, randomly initialize the features of
+unit cells and process them into a graph. Then input the initial
+graph into GNN to obtain the near-ﬁeld of the metasurface and
+subsequentlycalculatethelossvaluebetweenthepredictednear-
+ﬁeldandthedesirednear-ﬁeldaccordingtothelossfunction.Af-
+ter that, update the features of the unit cells (the node features
+inthegraph)throughgradientdescentandbackpropagation.Fi-
+nally,aftermultipleiterations,thelossvaluebecomessuﬃciently
+smallandthedesiredmetasurfacesareobtained.Inthisprocess,
+thedesignofthelossfunctionsigniﬁcantlyinﬂuencestheeﬀec-
+tiveness of the inverse design. To enhance the E-ﬁeld intensity
+inthetargetregionandensureitsuniformdistribution,theloss
+functionisdesignedas:
+loss =
+( ∫a E(r) dr
+∫E(r) dr −1
+)2
++ A
+∫a
+(
+E(r)−Eavg
+)2
+dr
+∫a dr (3)
+where a represents the target imaging area, the E(r)r e p r e s e n t s
+theE-ﬁeldintensityat r,theE avg representstheaverageE-ﬁeldin-
+tensityoverthearea a,and ∫
+a
+integratestheintensityoverthearea
+a. The ﬁrst part of the loss function aims to increase the E-ﬁeld
+intensity in the target region, while the second part is designed
+toachieveauniformdistributionofE-ﬁeldintensityinthetarget
+region, andAis a hyperparameter used to balance the intensity
+anduniformityofthenear-ﬁeldwithinthetargetregion.
+Tovalidatetheeﬃcacyoftheaforementioneddesignmethod-
+ology, we have undertaken an inverse design process, employ-
+ing the near-ﬁeld design of a triangular-shaped image as a
+demonstrativeexample.Afterobtainingthe30 ×30metasurface
+through inverse design, we compute its near-ﬁeld using GNN
+andCSTindividuallyandtheresultsareshowninFigure 3f.The
+metasurface has achieved the expected functions, validating the
+eﬀectivenessofourinversedesignapproach.
+2.4.CombinationofGNNandDiﬀractionTheory
+TheRayleigh-Sommerfelddiﬀractiontheorycanalsobeutilized
+for calculating the scattered ﬁelds of metasurfaces. In this the-
+ory, each point on a wavefront can be considered as a central
+wave source that generates wavelets. Currently, this method is
+combinedwithvariousalgorithmssuchasGerchberg–Saxtonal-
+gorithm,andwidelyusedinholographicimaging. [39–42] Thepro-
+cess of Rayleigh–Sommerfeld diﬀraction can be mathematically
+expressedas:
+E (x, y, z) = ∫∫
+z
+l2
+(
+1
+2𝜋l + 1
+j𝜆
+)
+e−j2𝜋l
+𝜆 E
+(
+x′,y
+′
+,0
+)
+dx′dy′ (4)
+whereE( x′,y
+′
+,0)representstheE-ﬁeldatapointonthenear-ﬁeld
+plane,andE( x, y, z)representstheE-ﬁeldatapointontheplane
+located at a distancez from the near-ﬁeld plane. The variablel
+denotesthedistancebetweenapoint( x, y, z)onthefurtherplane
+and the center point of the near-ﬁeld plane, which can be ex-
+pressedas l =
+√
+x2 + y2 + z2. 𝜆representsthewavelengthofthe
+EM wave. According to Equation (4), the near-ﬁeld data can be
+extrapolated to predict the scattered ﬁelds at any given distance.
+Therefore,wecancomputethescatteredﬁeldsonthesurfaceof
+metasurfaces according to the reﬂection coeﬃcient of the unit
+cells, and subsequently apply the Rayleigh–Sommerfeld diﬀrac-
+tion method to calculate the scattered ﬁelds of metasurfaces on
+the plane at any distance. However, it is crucial to note that the
+diﬀraction method makes an assumption that each secondary
+wave source operates independently, overlooking mutual cou-
+pling eﬀects. Consequently, a direct application of this method
+to compute the scattered ﬁelds of highly coupled metasurfaces
+mayinducesubstantialinaccuracies.
+Despitethementioneddrawbacksofdiﬀractionmethod,itcan
+accuratelycalculatethescatteredﬁeldsatanydistanceforknown
+near-ﬁelds. This compensates for the limitation of GNN that it
+can only predict the near-ﬁeld at a ﬁxed distance. By combining
+GNNwithdiﬀractionmethod,wecanaccuratelyobtainthescat-
+tered ﬁelds of metasurfaces with arbitrary-large size at any dis-
+tance. We have randomly generated a 30× 30 metasurface and
+employed diﬀerent methods to calculate the scattered ﬁelds on
+theplaneslocated20and30wavelengthsawayfromit.Theper-
+formanceisshownin Figure4b,c.Thescatteredﬁeldscomputed
+usingGNNcloselyalignwiththesimulationresults,showcasing
+minimaldeviation,whereastheoutcomesderivedsolelyfromthe
+diﬀractionmethodmanifestnotabledistortions.
+2.5.Near-to-FarTransformation
+Innumerousmetasurfacesapplications,particularlyintherealm
+ofwirelesscommunications,thefar-ﬁeldbehaviorholdssigniﬁ-
+cant importance. Although the GNN is only used to predict the
+near-ﬁeldsofmetasurfacesinthiswork,thefar-ﬁeldscanbeeas-
+ily obtained by near-to-far transformation algorithms,[43,44] fur-
+therexpandingitsapplicationscenarios.Herewehaveemployed
+theplanewaveexpansionmethodforfar-ﬁeldcalculation. [45] The
+near-ﬁeld of a metasurface can be written as a superposition of
+planewaves(allofthesamefrequency,diﬀerentamplitudes,and
+traveling in diﬀerent directions) of the formf(kx ,k y)exp(−jkr).
+Thefunction f(kx ,k y)isthevectoramplitudeofthewave,and kx
+and ky are the spectral frequencies which extend over the entire
+frequency spectrum. Thus, the E-ﬁeld in spherical coordinates
+canbewrittenas:
+E(r,𝜃, 𝜑) ≅j ke−jkr
+2𝜋r
+[
+𝜽(fxcos𝜑 + fysin𝜑 )
++ 𝝋cos𝜃 (−fxsin𝜑 + fycos𝜑 )]
+(5)
+where fx and fy arethecomponentsof f inthexandydirections
+respectively. Asr tends to inﬁnity, we can obtain the far-ﬁeld of
+the metasurface. As an example, we have randomly generated a
+metasurface and separately computed its far-ﬁeld radiation pat-
+terninE-planeusingdiﬀractionmethodandGNN.Thenthere-
+sultsarecomparedwithsimulationdata,asshowninFigure 4d.
+ThePearsoncorrelationcoeﬃcient 𝜌betweenthediﬀractionre-
+sultsandsimulationresultsis0.702,whilefortheGNNresults,
+itis0.878,indicatingthattheGNNmethodisnotablymoreaccu-
+rate than the diﬀraction method that does not consider the cou-
+plingeﬀects(SupplementaryNote S4,SupportingInformation).
+Laser Photonics Rev.2025,19,2400979 ©2024Wiley-VCHGmbH2400979(5of8)
+ 18638899, 2025, 1, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/lpor.202400979 by National University Of Defense, Wiley Online Library on [18/10/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+=== PAGE 6 ===
+www.advancedsciencenews.com www.lpr-journal.org
+Figure 4.Prediction of scattered ﬁelds at arbitrary distances and far-ﬁelds. a) Combination of GNN with physical models. GNN can predict the near-
+ﬁeldsofmetasurfacesathalfawavelengthposition.Bycombiningwiththediﬀractionmethod,itcanderivethescatteredﬁeldsatanydistance.Throu gh
+near-to-far transformation algorithm, the near-ﬁeld can be further extended to far-ﬁeld radiation pattern. b) The scattered ﬁelds prediction results at
+20 wavelengths positions computed by the individual diﬀraction method, GNN method, and CST simulation method, respectively. c) The scattered
+ﬁeldpredictionresultsat30wavelengthspositionscomputedbytheindividualdiﬀractionmethod,GNNmethod,andCSTsimulationmethod,respec-
+tively.(d)Thecomparisonoffar-ﬁeldresultsinE-planebetweendiﬀractionmethod,GNNmethod,andCSTsimulationresult.ThePearsoncorrelation
+coeﬃcients𝜌are0.702and0.878respectively.
+2.6.IntelligentMetasurfacesExperimentwithCoupling
+Involvement
+To further verify the performance of GNN in real scenarios,
+we have fabricated an intelligent metasurface comprising of
+20× 20-unit cells. The intelligent metasurface system consists
+ofthemetasurface,controlcircuits,ﬁeldprogrammablegatear-
+ray (FPGA), and computer (Supplementary NoteS5, Support-
+ing Information). The FPGA can output serial signals of high
+and low voltage levels through programming and then the con-
+trol circuit is responsible for converting them into parallel for-
+mat. The metasurface is processed using conventional printed
+circuitboard(PCB)techniques,withthesubstratematerialbeing
+F4B (the dielectric constant of 2.65). Each unit cell of metasur-
+faceisequippedwithanSMP1320diode,whichcanbeindepen-
+dently voltage-controlled through the control circuit. The diode
+exhibits diﬀerent equivalent capacitances when it is in “on” and
+“oﬀ”stages,whichenablessigniﬁcantvariationsinthereﬂection
+coeﬃcientoftheunitcellatthetargetfrequency.
+We have conducted the experiment in a microwave anechoic
+chamber, andFigure 5c shows the near-ﬁeld measurement en-
+vironment. Thenear-ﬁeld informationof themetasurface at 5.9
+GHz is collected using the near-ﬁeld scanning system, and the
+scanningplaneishalfawavelengthawayfromthemetasurface.
+Wecollectedthedatabychangingthereﬂectionresponseofthe
+metasurface using FPGA and control circuits. After the GNN is
+trained,wehaveutilizedittopredictthenear-ﬁeldofthemetasur-
+faceandtheresultsareshowninFigure 5d.Wecanseethatthe
+near-ﬁeldspredictedbyGNNcloselyalignwiththeexperimental
+results, demonstrating the eﬀectiveness of GNN in practical ap-
+plications.TheslightdiscrepanciesbetweenGNNpredictionre-
+sultsandexperimentalresultsmaybecausedbytheinterference
+ofbackgroundwavesandthefabricationerrorsoftheintelligent
+metasurface.
+3.Conclusion
+Insummary,wehaveproposedarapidandpreciseapproachuti-
+lizing the GNN framework to analyze coupling eﬀects among
+unit cells, thus enabling precise characterization of intelligent
+metasurfaces. This methodology is applicable to arbitrary-large
+metasurfaces,whileintegratingwithphysicalprinciples,exhibit-
+ing remarkable scalability. Furthermore, as the conﬁgurations
+of unit cells are represented as node features in the graph-
+structured data, diﬀerent parameters that describe the conﬁgu-
+rations of units can be used as node features to accommodate
+Laser Photonics Rev.2025,19,2400979 ©2024Wiley-VCHGmbH2400979(6of8)
+ 18638899, 2025, 1, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/lpor.202400979 by National University Of Defense, Wiley Online Library on [18/10/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+=== PAGE 7 ===
+www.advancedsciencenews.com www.lpr-journal.org
+Figure5. Intelligentmetasurfacesexperiment.a)Theunitcellofintelligentmetasurfaceandtheequivalentcircuitsofthediodein“on”and“oﬀ”states.
+b)Thereﬂectiveamplitudeandphaseresponseofthemetasurfacewhenthediodeisin“on”and“oﬀ”states.c)Near-ﬁeldexperimentalsetup.d)The
+comparisonbetweenGNNpredictionresultsandexperimentalresultsinthecaseof5 ×5metasurfaces.
+distinctunitdesigns.Similarly,thefeaturesofedgescanalsobe
+deﬁnedaccordinglybasedonthespeciﬁcstructuresofthemeta-
+surfaces, such as hexagonal lattice arrangements and origami
+designs. Fundamentally, we have endowed GNN with realistic
+physical meanings, analyzing intricate coupling relationships
+that have been challenging to resolve. The physical abstraction
+of GNN holds paramount importance for numerous applica-
+tions, such as scattering mechanisms in random media and
+single-pixel imaging. By combining the proposed design model
+withmaturemicro/nanofabricationtechnologies(suchasMicro-
+Electro-Mechanical Systems and phase-change materials), simi-
+lar concepts can be seamlessly extended to higher frequencies.
+Webelievethattheabstractionstrategyofgraphs,combinedwith
+algorithm-drivenmetasurfaces,holdsthekeytofabricatinglarge-
+scaleintelligentmetadevices.
+4.ExperimentalSection
+DataGenerationandTrainingofGNN : Inthedatagenerationstage,we
+have collected 10 648 sets of data using CST Microwave Studio software
+guided by sliding window method. The whole dataset is shuﬄed, where
+80% are blindly selected as the training set and the remaining 20% are
+used for validation and testing. We use the Deep Graph Library (DGL) to
+implementtheGNNandconvertalldataintographstomeetitsinputdata
+format.TheGNNistrainedusingPythonversion3.10andPytorchframe-
+workonaserver(GeForceRTX4090GPUandanAMDRyzenThreadripper
+PRO5975WX32-Coreswith128GBRAM,runningonaWindowsoperat-
+ingsystem).
+Control Module for Intelligent Metasurfaces System: Independent volt-
+age control for 400-unit cells can be achieved through Verilog program-
+ming in Vivado 2018.3. The program is written into the FPGA (model:
+PYNQ-Z2), which generates serial signals. In Verilog code, 1 and 0 rep-
+resent high and low voltage levels respectively, corresponding to FPGA
+outputsof3.3and0V.Thecontrolcircuitthenconvertstheserialsignals
+intoparallelsignals,therebyenablingindependentcontroloftheunitcells.
+SupportingInformation
+SupportingInformationisavailablefromtheWileyOnlineLibraryorfrom
+theauthor.
+Acknowledgements
+This work at Zhejiang University was sponsored by the National Natu-
+ral Science Foundation of China (NNSFC) under Grant Nos. 61625502,
+11961141010, 61975176, 62071424, and 62101485, the Young Elite Sci-
+entists Sponsorship Program by CAST (2022QNRC001), the Top-Notch
+Young Talents Program of China, and the Fundamental Research Funds
+fortheCentralUniversities.
+ConﬂictofInterest
+Theauthorsdeclarenoconﬂictofinterest.
+Laser Photonics Rev.2025,19,2400979 ©2024Wiley-VCHGmbH2400979(7of8)
+ 18638899, 2025, 1, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/lpor.202400979 by National University Of Defense, Wiley Online Library on [18/10/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+=== PAGE 8 ===
+www.advancedsciencenews.com www.lpr-journal.org
+AuthorContributions
+O.W. conceived the idea of this research. O.W. performed the simulation
+and experiment. O.W., C.Q., and Z.F. wrote the paper. O.W. designed the
+intelligentmetasurfacesystem.Allauthorssharedtheirinsightsandcon-
+tributedtodiscussionsontheresults.C.Q.,Z.F.,andH.C.supervisedthe
+project.
+DataAvailabilityStatement
+Thedatathatsupporttheﬁndingsofthisstudyareavailablefromthecor-
+respondingauthoruponreasonablerequest.
+Keywords
+coupling,graphneuralnetworks,intelligentmetasurfaces,inversedesign
+Received:June26,2024
+Revised:July27,2024
+Publishedonline:August20,2024
+[1] C. Qian, Y. Jia, Z. Wang, J. Chen, P. Lin, X. Zhu, E. Li, H. Chen,Adv.
+Photonics2024,6,016001.
+[2] T .J.Cui,M.Q.Qi,X.W an,J.Zhao,Q.Cheng, LightSci.Appl. 2014,3,
+e218.
+[3] P. Lin, C. Qian, J. Zhang, J. Chen, X. Zhu, Z. Wang, J. Huangfu, H.
+Chen,Prog. Electromagn. Res.2023,178,83.
+[4] J.Li,P.Yu,S.Zhang,N.Liu, Nat. Commun.2020,11,3574.
+[5] X. Zhu, C. Qian, Y. Jia, J. Chen, Y. Fang, Z. Fan, J. Zhang, D. Li, R.
+Abdi-Ghaleh,H.Chen, Adv. Intell. Syst.2023,5,2300065.
+[6] H.Lu,J.Zhao,B.Zheng,C.Qian,T.Cai,E.Li,H.Chen, Nat.Commun.
+2023,14,3301.
+[7] Q. Ma, G. D. Bai, H. B. Jing, C. Yang, L. Li, T. J. Cui,Light Sci. Appl.
+2019,8,98.
+[8] W. Zhou, S. Zhu, Z. Zhang, R. Zhu, B. Chen, J. Zhao, X. Wei, H. Lu,
+B.Zheng, Opt. Express2024,32,17911.
+[9] Y. Feng, Q. Hu, K. Qu, W. Yang, Y. Zheng, K. Chen,EMScience 2023,
+1,1.
+[10] C.Qian,B.Zheng,Y.Shen,L.Jing,E.Li,L.Shen,H.Chen, Nat. Pho-
+tonics2020,14,383.
+[11] H.Zhao,Y.Shuang,M.Wei,T.J.Cui,P.D.Hougne,L.Li, Nat. Com-
+mun.2020,11,3926.
+[12] Z.Fan,C.Qian,Y.Jia,Z.Wang,Y.Ding,D.Wang,L.Tian,E.Li,T.Cai,
+B.Zheng,I.Kaminer,H.Chen, Sci. Adv.2022,8,eabn7905.
+[13] Q. Hu, J. Zhao, K. Chen, K. Qu, W. Yang, J. Zhao, T. Jiang, Y. Feng,
+Laser Photonics Rev.2022,16,2100718.
+[14] G.C.Alexandropoulos,N.Shlezinger,I.Alamzadeh,M.F.Imani,H.
+Zhang,Y.C.Eldar, IEEE Veh. Technol. Mag.2024,19,75.
+[15] Z.Li,X.Tian,C.-W.Qiu,J.S.Ho, Nat. Electron.2021,4,382.
+[16] A. S. Solntsev, G. S. Agarwal, Y. S. Kivshar,Nat. Photonics2021, 15,
+327.
+[17] M. Gopakumar, G.-Y. Lee, S. Choi, B. Chao, Y. Peng, J. Kim, G.
+Wetzstein,Nature2024,629,791.
+[18] J. Zhang, C. Qian, G. You, T. Wang, Y. Saifullah, R. Abdi-Ghaleh, H.
+Chen,Adv. Sci.2024,2308807.
+[19] Z.Liu,D.Zhu,S.P.Rodrigues,K.-T.Lee,W.Cai, NanoLett. 2018,18,
+6570.
+[20] Y. Jia, C. Qian, Z. Fan, T. Cai, E.-P. Li, H. Chen,Light Sci. Appl.2023,
+12,82.
+[21] Z.Liu,D.Zhu,K.-T.Lee,A.S.Kim,L.Raju,W.Cai, Adv. Mater.2020,
+32,1904790.
+[22] M.V.Zhelyeznyakov,S.Brunton,A.Majumdar, ACS Photonics2021,
+8,481.
+[23] Y.Jia,Z.Fan,C.Qian,P.Hougne,H.Chen, LaserPhotonicsRev. 2024,
+2400063.
+[24] R.Zhu,T.Qiu,J.Wang,S.Sui,C.Hao,T.Liu,Y.Li,M.Feng,A.Zhang,
+C.-W.Qiu,S.Qu, Nat. Commun.2021,12,2974.
+[25] J. Chen, C. Qian, J. Zhang, Y. Jia, H. Chen,Nat. Commun.2023, 14,
+4872.
+[26] J. Zhang, C. Qian, Z. Fan, J. Chen, E. Li, J. Jin, H. Chen,Adv. Opt.
+Mater.2022,10,2200748.
+[ 2 7 ] M .Z h o u ,D .L i u ,S .W .B e l l i n g ,H .C h e n g ,M .A .K a t s ,S .F a n ,M .L .
+Povinelli,Z.Yu, ACS Photonics2021,8,2265.
+[28] S. An, B. Zheng, M. Y. Shalaginov, H. Tang, H. Li, L. Zhou, Y.
+Dong, M. Haerinia, A. M. Agarwal, C. Rivero-Baleine, M. Kang, K. A.
+Richardson,T.Gu,J.Hu,C.Fowler,H.Zhang, Adv.Opt.Mater. 2022,
+10,2102113.
+[29] J.Noh,Y.Nam,S.Lee,I.Lee,Y.Kim,J.Lee,J.Rho, Photonics Nanos-
+truct.2022,52,101071.
+[30] K.Xu,W.Hu,J.Leskovec,S.Jegelka,ArXiv1810.00826 2018.
+[31] Z.Guo,H.He,D.Katabi,presentedatProceedingsofthe36thInter-
+national Conference on Machine Learning, Long Beach, California,
+2019,7364-7373.
+[32] K.Han,Y.Wang,J.Guo,Y.Tang,E.Wu,ArXiv2206.00272 2022.
+[33] S.Wu,F.Sun,W.Zhang,X.Xie,B.Cui, ACMComput.Surv. 2022,55,
+1.
+[34] Z. Yang, W. Zhong, L. Zhao, C. Yu-Chian Chen,Chem. Sci.2022, 13,
+816.
+[35] S. Chen, A. Wulamu, Q. Zou, H. Zheng, L. Wen, X. Guo, H. Chen, T.
+Zhang,Y.Zhang, J. Mol. Graph. Model.2023,123,108506.
+[36] E.Khoram,Z.Wu,Y.Qu,M.Zhou,Z.Yu, ACSPhotonics 2023,10,892
+.
+[37] X.He,K.Deng,X.Wang,Y.Li,Y.Zhang,M.Wang,ArXiv:2002.02126,
+2020.
+[38] S.Peng,K.Sugiyama,T.Mine,arXiv:2208.12689 2022.
+[39] Z.Wu,Z.Yu, APL Photonics2021,6,071301.
+[40] G.Qu,W.Yang,Q.Song,Y.Liu,C.-W.Qiu,J.Han,D.-P.Tsai,S.Xiao,
+Nat. Commun.2020,11,5484.
+[41] I.Kim,J.Jang,G.Kim,J.Lee,T.Badloe,J.Mun,J.Rho, Nat.Commun.
+2021,12,3614.
+[42] L.Jin,J.Xie,B.Pan,G.Luo, Prog. Electromagn. Res.2023,178,103.
+[43] R. Cornelius, T. Salmeron-Ruiz, F. Saccardi, L. Foged, D. Heberling,
+M.Sierra-Castaner, IEEE Antennas Propag. Mag.2014,56,252.
+[44] K. Phaebua, T. Lertwiriyaprapa, D. Torrungrueng, presented at 2021
+9th iEECON,IEEE,Pattaya,Thailand,535–538, 2021.
+[45] C. Balanis,Antenna Theory: Analysis and Design, 4th ed. Wiley, Wein-
+heim,Germany, 2016,pp.684–693.
+Laser Photonics Rev.2025,19,2400979 ©2024Wiley-VCHGmbH2400979(8of8)
+ 18638899, 2025, 1, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/lpor.202400979 by National University Of Defense, Wiley Online Library on [18/10/2026]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
