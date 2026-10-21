@@ -46,4 +46,6 @@
 git push origin main
 ```
 
-远端：`https://github.com/Orange1105921991/metasurface-gnn.git`（待创建；如改名用 `git remote set-url`）
+远端：`git@github.com:XiaXiaXia-ai/metasurface-gnn.git`（SSH；https 为 `https://github.com/XiaXiaXia-ai/metasurface-gnn`）
+
+首次推送已完成（2026-10-21）。`git config user.name = XiaXiaXia-ai`，提交作者与 GitHub 账号一致。）

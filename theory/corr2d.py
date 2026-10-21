@@ -48,14 +48,16 @@ def pearson(a, b, mask):
 
 def row(grid, meas, model_db):
     out = {}
-    base = (grid.th >= 0.0) & (grid.th <= 90.0) & (meas > -30)
+    edge = grid.th < 89.5          # theta = 90 is degenerate: scalar cos(theta) = 0 -> -300 dB
+    base = (grid.th >= 0.0) & (grid.th <= 90.0) & (meas > -30) & edge
     out["r2d_all"] = pearson(model_db, meas, base)
     core = (grid.th >= 6.0) & (grid.th <= 60.0) & (meas > -30)
     out["r2d_6_60"] = pearson(model_db, meas, core)
     out["n_6_60"] = int(core.sum())
     out["n_all"] = int(base.sum())
     for name, lo, hi in BANDS:
-        out["r_" + name] = pearson(model_db, meas, base & (grid.th >= lo) & (grid.th < hi))
+        out["r_" + name] = pearson(model_db, meas,
+                                   base & (grid.th >= lo) & (grid.th < hi) & edge)
     lin = base & (grid.th >= 6) & (grid.th <= 60)
     out["r_lin_6_60"] = pearson(10 ** (model_db[lin] / 10), 10 ** (meas[lin] / 10),
                                 np.ones(lin.sum(), bool))

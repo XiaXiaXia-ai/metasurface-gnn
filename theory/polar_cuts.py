@@ -80,7 +80,7 @@ def main():
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    th = np.arange(0.0, 90.5, 0.5)
+    th = np.arange(0.0, 89.6, 0.5)   # theta=90 is degenerate for a cos(theta) aperture
 
     def cut(vals, phi):
         mask = g.cut(phi) & (g.th <= 90)
@@ -100,8 +100,8 @@ def main():
             # 0.5 deg interpolation used only for drawing
             k60 = g.cut(0) & (g.th >= 6) & (g.th <= 60)
             r60 = rho(fields[lab].db, meas, k60 & (meas > -30))
-            k0 = g.cut(0) & (g.th <= 90)
-            kl = g.cut(phi_l) & (g.th <= 90)
+            k0 = g.cut(0) & (g.th < 89.5)
+            kl = g.cut(phi_l) & (g.th < 89.5)
             vr, vl = fields[lab].db[k0], fields[lab].db[kl]
             cr_, cl_ = meas[k0], meas[kl]
             keep = np.r_[(cr_ > -30), (cl_ > -30)]
@@ -148,7 +148,7 @@ def main():
     rows = []
     for lab in order:
         for pc in (0, 45, 90, 180):
-            m = g.cut(pc) & (g.th <= 90)
+            m = g.cut(pc) & (g.th < 89.5)
             rows.append(dict(model=lab, phi=pc,
                              rho_0_90=rho(fields[lab].db, meas, m & (meas > -30)),
                              rho_6_60=rho(fields[lab].db, meas,
