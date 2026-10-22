@@ -166,6 +166,7 @@ class GraphDataset:
         out["q0"] = torch.as_tensor(g["q0"].astype(np.complex128))
         out["q0_re"] = torch.as_tensor(g["q0_re"], dtype=torch.float32)
         out["q0_im"] = torch.as_tensor(g["q0_im"], dtype=torch.float32)
+        out["bits"] = torch.as_tensor(g["bits"], dtype=torch.float32)
         out["sig_db"] = self.target_db[i]
         return out
 

@@ -64,6 +64,27 @@ class PhysicsPipeline(nn.Module):
             sig = self.net(batch)
             return {"sig_db": sig}
         q_re, q_im = self.q_of(batch)
+        # q is a flat (B*N,) node tensor while FarFieldOperator.__call__ expects
+        # (B, N): reshape when all graphs have the same size, otherwise evaluate
+        # per graph and concatenate.
+        n_graphs = int(batch.get("n_graphs", 1))
+        ptr = batch.get("ptr")
+        if n_graphs > 1 and ptr is not None:
+            sizes = (ptr[1:] - ptr[:-1]).tolist()
+            if len(set(sizes)) == 1:
+                q_re = q_re.view(n_graphs, sizes[0])
+                q_im = q_im.view(n_graphs, sizes[0])
+            else:
+                per = [self.op(q_re[int(ptr[i]):int(ptr[i + 1])],
+                               q_im[int(ptr[i]):int(ptr[i + 1])])
+                       for i in range(n_graphs)]
+                fields = {k: torch.cat([p[k] for p in per], 0) for k in per[0]}
+                d = {"sig_db": self.op.sigma_db(fields, self.db_floor)}
+                if return_fields:
+                    d.update(fields)
+                    d["q_re"] = q_re
+                    d["q_im"] = q_im
+                return d
         fields = self.op(q_re, q_im)
         d = {"sig_db": self.op.sigma_db(fields, self.db_floor)}
         if return_fields:
