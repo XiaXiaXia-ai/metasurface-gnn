@@ -45,6 +45,11 @@ class GraphCfg:
     radius: int = 1                     # Chebyshev neighbourhood radius (1 -> 8 nbrs)
     self_loops: bool = False
     edge_features: bool = True
+    # curved / conformal support (data/geometry.py).  geometry=False keeps the
+    # planar 9-column node features and 5-column edge features unchanged.
+    geometry: bool = False
+    surface: str = "plane"              # "plane" | "cylinder"
+    surface_radius_mm: float = 0.0      # required when surface="cylinder"
 
 
 @dataclass
@@ -279,6 +284,14 @@ def _validate(c: Config) -> None:
         raise ConfigError("physics.gamma_source must be 'floquet' or 'unit'")
     if c.graph.radius < 1:
         raise ConfigError("graph.radius must be >= 1")
+    if c.graph.surface not in ("plane", "cylinder"):
+        raise ConfigError("graph.surface must be 'plane' or 'cylinder'")
+    if c.graph.geometry and c.graph.surface == "plane":
+        raise ConfigError("graph.geometry=true requires a curved surface "
+                          "(graph.surface='cylinder'); a planar array carries no "
+                          "extra geometry information")
+    if c.graph.geometry and c.graph.surface == "cylinder" and c.graph.surface_radius_mm <= 0:
+        raise ConfigError("graph.surface_radius_mm must be > 0 for a cylindrical surface")
     m = c.model
     if m.name not in ("m0", "m1", "m2", "m3"):
         raise ConfigError("model.name must be one of m0/m1/m2/m3")

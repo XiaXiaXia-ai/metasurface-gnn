@@ -21,6 +21,7 @@ import numpy as np
 import torch
 
 from .config import Config
+from .data import geometry
 from .data.build_graph import GraphDataset, make_datasets
 from .data.dataset import (Grid, build_snapshot, load_or_make_splits,
                           load_snapshot, load_splits, save_snapshot, save_splits,
@@ -146,13 +147,23 @@ def build_context(cfg: Config, out_dir: Optional[str] = None,
         for d in (ds_tr, ds_va, ds_te):
             d.norm = norm
         fitted = norm
-    pos = R.lattice_positions(cfg.physics.n_side, cfg.physics.period_mm)
+    # M4 (audit): with a curved surface the far field must be summed at the real
+    # 3-D positions and with the per-cell area; otherwise geometry=true only
+    # changes the network input while the physics stays planar.
+    surface = geometry.from_config(cfg.graph)
+    if surface is None:
+        pos = R.lattice_positions(cfg.physics.n_side, cfg.physics.period_mm)
+        area = None
+    else:
+        pos = surface.positions(cfg.physics.n_side, cfg.physics.period_mm)
+        area = surface.areas(cfg.physics.n_side, cfg.physics.period_mm)
     op = R.FarFieldOperator(grid.theta, grid.phi, pos_mm=pos,
                             freq_ghz=cfg.physics.freq_ghz,
                             period_mm=cfg.physics.period_mm,
                             projection=cfg.physics.projection,
                             dtype=dtype_of(cfg),
-                            chunk_m=0 if grid.size <= 20000 else 8192)
+                            chunk_m=0 if grid.size <= 20000 else 8192,
+                            area_mm2=area)
     if verbose:
         print("[ctx] cases=%d  train=%d val=%d test=%d  nodes=%d  angles=%d"
               % (len(cases), len(ds_tr), len(ds_va), len(ds_te),

@@ -10,11 +10,16 @@ Node features (fixed order, see NODE_FEATURES)
     5 Im Gamma       local reflection coefficient (imag part)
     6 |Gamma|
     7 boundary       1 on the array rim (edge coupling / truncation proxy)
-    8 normal_z       n_hat . z_hat  (= 1 for the planar array; slot reserved for
-                     the cylindrical / conformal extension of plan step 03/06)
+    8 normal_z       n_hat . z_hat  (= 1 for the planar array).  One number is
+                     NOT enough for a curved surface: with graph.geometry=true
+                     GEOM_NODE_FEATURES appends cos_inc, k_t1, k_t2, kappa1*lam,
+                     kappa2*lam and A/P^2 from data/geometry.py
 
 Edge features (both directions are inserted, directed edges)
     0 dx/lambda, 1 dy/lambda, 2 r/lambda, 3 cos(azimuth), 4 sin(azimuth)
+    NOTE dx/dy/r/azimuth are the *projected* (x-y) values.  On a curved surface
+    they differ from the true 3-D separation, which is why the geometry block
+    appends r3d/lambda as a separate column.
 
 Geometry used by the physics (positions in mm, q0, the target) is stored raw and
 is never normalised.  Node reordering leaves the far field unchanged because the
@@ -29,12 +34,17 @@ import torch
 from ..config import Config
 from ..physics import radiation as R
 from ..physics.unit_library import UnitLibrary
+from . import geometry as G
 from .dataset import Case, Grid, load_target
 from .normalizer import Normalizer
 
 NODE_FEATURES = ("bit", "bit_signed", "x_lam", "y_lam", "gamma_re", "gamma_im",
                  "gamma_abs", "boundary", "normal_z")
+# appended only when a Surface is supplied (graph.geometry = true)
+GEOM_NODE_FEATURES = ("cos_inc", "k_t1", "k_t2", "kappa1_lam", "kappa2_lam",
+                      "area_ratio")
 EDGE_FEATURES = ("dx_lam", "dy_lam", "r_lam", "cos_az", "sin_az")
+GEOM_EDGE_FEATURES = ("r3d_lam", "normal_mismatch")
 
 
 # ---------------------------------------------------------------- primitives
@@ -75,7 +85,8 @@ def edge_index_grid(n_side: int, radius: int = 1,
 
 def node_features(bits: np.ndarray, pos_xy: np.ndarray, gamma: np.ndarray,
                   n_side: int, period_mm: float, lam: float,
-                  normal_z: Optional[np.ndarray] = None) -> np.ndarray:
+                  normal_z: Optional[np.ndarray] = None,
+                  geom: Optional[dict] = None) -> np.ndarray:
     b = np.asarray(bits, dtype=np.float64).ravel()
     n = b.size
     ii = np.arange(n) // n_side
@@ -83,10 +94,20 @@ def node_features(bits: np.ndarray, pos_xy: np.ndarray, gamma: np.ndarray,
     boundary = ((ii == 0) | (ii == n_side - 1) | (jj == 0) | (jj == n_side - 1))
     nz = np.ones(n) if normal_z is None else np.asarray(normal_z, dtype=np.float64)
     g = np.asarray(gamma, dtype=complex).ravel()
-    x = np.stack([b, 2.0 * b - 1.0,
-                  pos_xy[:, 0] / lam, pos_xy[:, 1] / lam,
-                  g.real, g.imag, np.abs(g),
-                  boundary.astype(np.float64), nz], axis=1)
+    cols = [b, 2.0 * b - 1.0,
+            pos_xy[:, 0] / lam, pos_xy[:, 1] / lam,
+            g.real, g.imag, np.abs(g),
+            boundary.astype(np.float64), nz]
+    if geom is not None:
+        # geometry block (GEOM_NODE_FEATURES order): a curved array needs the
+        # local frame and curvature, not just n_hat . z_hat.
+        cols += [np.asarray(geom["cos_inc"], dtype=np.float64),
+                 np.asarray(geom["k_t1"], dtype=np.float64),
+                 np.asarray(geom["k_t2"], dtype=np.float64),
+                 np.asarray(geom["kappa1"], dtype=np.float64) * lam,
+                 np.asarray(geom["kappa2"], dtype=np.float64) * lam,
+                 np.asarray(geom["area_ratio"], dtype=np.float64)]
+    x = np.stack(cols, axis=1)
     return x.astype(np.float32)
 
 
@@ -101,22 +122,49 @@ def edge_features(edge_index: np.ndarray, pos_xy: np.ndarray, lam: float) -> np.
 
 def build_graph(case: Case, library: UnitLibrary, n_side: int, period_mm: float,
                 radius: int, self_loops: bool, lam: float,
-                edge_features_on: bool = True) -> dict:
-    pos_xy = lattice_xy(n_side, period_mm)
+                edge_features_on: bool = True,
+                surface: Optional["G.Surface"] = None) -> dict:
     if case.bits.size != n_side * n_side:
         raise ValueError("%s: %d bits != %d nodes" % (case.name, case.bits.size,
                                                       n_side * n_side))
+    if surface is not None:
+        surface.check()          # S3: a radius=0 cylinder would produce NaNs
     gamma = library(case.bits.ravel())
-    x = node_features(case.bits, pos_xy, gamma, n_side, period_mm, lam)
+    if surface is None:
+        pos_xy = lattice_xy(n_side, period_mm)
+        pos = np.concatenate([pos_xy, np.zeros((pos_xy.shape[0], 1))], axis=1)
+        normal_z, geom, frames, areas, curv = None, None, None, None, None
+    else:
+        pos = surface.positions(n_side, period_mm)
+        frames = surface.frames(n_side, period_mm)
+        areas = surface.areas(n_side, period_mm)
+        curv = surface.curvature(n_side, period_mm)
+        cos_inc, k_t1, k_t2 = surface.incidence(n_side, period_mm)
+        pos_xy = pos[:, :2]
+        normal_z = frames[:, 2, 2]
+        geom = dict(cos_inc=cos_inc, k_t1=k_t1, k_t2=k_t2,
+                    kappa1=curv[:, 0], kappa2=curv[:, 1],
+                    area_ratio=areas / (period_mm ** 2))
+    x = node_features(case.bits, pos_xy, gamma, n_side, period_mm, lam,
+                      normal_z=normal_z, geom=geom)
     ei = edge_index_grid(n_side, radius, self_loops)
     ea = (edge_features(ei, pos_xy, lam) if edge_features_on
           else np.zeros((ei.shape[1], 0), dtype=np.float32))
-    pos = np.concatenate([pos_xy, np.zeros((pos_xy.shape[0], 1))], axis=1)
+    if surface is not None and edge_features_on:
+        # geometric edge block: true 3-D separation and the local normal change
+        # across the edge (a curvature proxy the 2-D features cannot see).
+        src, dst = ei[0], ei[1]
+        d3 = np.linalg.norm(pos[dst] - pos[src], axis=1) / lam
+        mism = 1.0 - np.sum(frames[src, :, 2] * frames[dst, :, 2], axis=1)
+        ea = np.concatenate([ea, np.stack([d3, mism], axis=1).astype(np.float32)], axis=1)
     return {"x": x, "edge_index": ei, "edge_attr": ea, "pos": pos.astype(np.float32),
             "q0": np.asarray(gamma, dtype=np.complex64),
             "q0_re": np.asarray(np.real(gamma), dtype=np.float32),
             "q0_im": np.asarray(np.imag(gamma), dtype=np.float32),
             "bits": np.asarray(case.bits, dtype=np.float32),
+            "frame": (None if frames is None else frames.astype(np.float32)),
+            "area": (None if areas is None else areas.astype(np.float32)),
+            "curv": (None if curv is None else curv.astype(np.float32)),
             "case_idx": int(case.idx), "name": case.name,
             "layout_id": case.layout_id,
             "n_nodes": int(x.shape[0]), "n_edges": int(ei.shape[1])}
@@ -133,12 +181,15 @@ class GraphDataset:
         self.cfg = cfg
         self.library = library
         self.lam = R.lam_mm(cfg.physics.freq_ghz)
+        # geometry features are opt-in (graph.geometry); None keeps the planar
+        # path bit-for-bit identical to the pre-2026-10-22 behaviour.
+        self.surface = G.from_config(cfg.graph)
         self.graphs: List[dict] = []
         for c in self.cases:
             self.graphs.append(build_graph(
                 c, library, cfg.physics.n_side, cfg.physics.period_mm,
                 cfg.graph.radius, cfg.graph.self_loops, self.lam,
-                cfg.graph.edge_features))
+                cfg.graph.edge_features, surface=self.surface))
         self.by_idx = {g["case_idx"]: i for i, g in enumerate(self.graphs)}
         tgt = np.stack([load_target(c, grid)["sig_db"] for c in self.cases], axis=0)
         self.target_db = torch.as_tensor(tgt.astype(np.float32))

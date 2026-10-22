@@ -30,6 +30,7 @@ import numpy as np
 import torch
 
 from .config import Config, load_config
+from .data import geometry
 from .data.build_graph import collate
 from .data.dataset import Grid, load_splits
 from .data.normalizer import Normalizer
@@ -121,7 +122,12 @@ def predict_baseline(ctx, split: str, oracle: bool = False) -> Dict[str, np.ndar
     ds = ctx.ds[split]
     cfg = ctx.cfg
     grid = ctx.grid
-    pos = R.lattice_positions(cfg.physics.n_side, cfg.physics.period_mm)
+    # the baseline must be evaluated on the same geometry as the GNN operator
+    # (audit: M4 fixed the operator but left this path planar)
+    surface = geometry.from_config(cfg.graph)
+    pos = (R.lattice_positions(cfg.physics.n_side, cfg.physics.period_mm)
+           if surface is None
+           else surface.positions(cfg.physics.n_side, cfg.physics.period_mm))
     w = _solid_weights_for_oracle(cfg, grid) if oracle else None
     preds, targ = [], []
     for i, c in enumerate(ds.cases):
