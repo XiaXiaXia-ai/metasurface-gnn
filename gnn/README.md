@@ -30,7 +30,7 @@
         physics/radiation.py    可微矢量远场算子（torch）+ 逐点 numpy 参考
         physics/baseline.py     q0 / M0 / 全局标量 oracle 拟合
         models/                 encoders / message_passing / residual_gnn / cnn_baseline / pipeline
-        losses.py               power / complex 两种损失 + 动态范围压缩
+        losses.py               power 损失（默认）+ complex 损失（类已实现但未接通，会显式报错）
         train.py evaluate.py predict.py inference.py
       configs/                  train_m3.yaml / train_m2.yaml / baseline_m1.yaml
       scripts/                  make_splits.py / run_baselines.py / smoke_test.py

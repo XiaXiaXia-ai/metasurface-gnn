@@ -195,7 +195,14 @@ def _check_container(val, tp, path):
         if not isinstance(val, (list, tuple)):
             raise ConfigError("%s: expected a sequence, got %r" % (path, val))
         if len(args) == 2 and args[1] is Ellipsis:          # Tuple[int, ...]
-            return tuple(_check_scalar(v, args[0], "%s[%d]" % (path, i))
+            elem = args[0]
+            # D4: the element type may itself be a container, e.g.
+            # bands: Tuple[Tuple[float, float], ...]; recursing keeps the
+            # nested tuples intact through a YAML round trip.
+            if get_origin(_strip_optional(elem)) in (tuple, Tuple, list, List):
+                return tuple(_check_container(v, elem, "%s[%d]" % (path, i))
+                             for i, v in enumerate(val))
+            return tuple(_check_scalar(v, elem, "%s[%d]" % (path, i))
                          for i, v in enumerate(val))
         if args and len(val) != len(args):
             raise ConfigError("%s: expected %d entries, got %d"

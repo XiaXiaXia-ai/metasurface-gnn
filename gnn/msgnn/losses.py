@@ -123,5 +123,12 @@ def build_loss(cfg: LossCfg, theta_deg):
     if cfg.mode == "power":
         return PowerLoss(cfg, theta_deg)
     if cfg.mode == "complex":
-        return ComplexLoss(cfg, theta_deg)
+        # B1 (docs/reviews/2026-10-22_physics_audit.md): ComplexLoss needs the
+        # four complex field tensors, but train/evaluate only hand over sig_db,
+        # and the on-disk dataset carries 4 amplitude columns only.  Fail loudly
+        # instead of exposing a configurable mode that crashes mid-training.
+        raise NotImplementedError(
+            "loss.mode=complex is not wired yet: it needs per-sample complex "
+            "fields (eth_re/eth_im/eph_re/eph_im) and a 6-column dataset; the "
+            "current data is 4-column amplitude only. See audit item B1.")
     raise ValueError("loss.mode must be power or complex")

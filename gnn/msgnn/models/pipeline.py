@@ -24,6 +24,26 @@ from .encoders import count_parameters
 from .residual_gnn import GraphNet
 
 
+def _remove_graph_mean(v_re, v_im, graph_index, n_graphs: int):
+    """Subtract each graph's mean from a per-node quantity (B3).
+
+    Keeps the uniform component in a single place (the global branch) so that
+    b and mean(dq) cannot both absorb it.
+    """
+    if graph_index is None:
+        return v_re, v_im
+    ones = torch.ones_like(v_re)
+    cnt = torch.zeros(n_graphs, dtype=v_re.dtype, device=v_re.device)
+    cnt.index_add_(0, graph_index, ones)
+    cnt = cnt.clamp_min(1.0)
+    out = []
+    for v in (v_re, v_im):
+        s = torch.zeros(n_graphs, dtype=v.dtype, device=v.device)
+        s.index_add_(0, graph_index, v)
+        out.append(v - (s / cnt)[graph_index])
+    return out[0], out[1]
+
+
 class PhysicsPipeline(nn.Module):
     """Wraps a backbone and the (parameter-free) far-field operator."""
 
@@ -50,7 +70,14 @@ class PhysicsPipeline(nn.Module):
         n_re, n_im = out["node_re"], out["node_im"]
         if self.kind == "m2":
             return n_re, n_im
-        # M3: residual + global common mode
+        # M3: residual + global common mode.
+        # B3 (audit): b and mean(dq) are not identifiable -- a constant offset
+        # can sit in either place.  Remove the per-graph mean of the residual so
+        # the global branch alone carries the uniform component and |b| keeps
+        # the meaning it has in the theory report (~0.37).
+        n_re, n_im = _remove_graph_mean(n_re, n_im,
+                                         batch.get("batch"),
+                                         int(batch.get("n_graphs", 1)))
         q_re = q0_re + n_re
         q_im = q0_im + n_im
         if out.get("glob_re") is not None:

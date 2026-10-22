@@ -204,8 +204,10 @@ def _ff_is_valid(path: str, grid: Grid, n_rows: Optional[int] = None) -> Tuple[b
         d = np.loadtxt(path)
     except Exception as exc:                                  # noqa: BLE001
         return False, "unreadable: %s" % exc
-    if d.ndim != 2 or d.shape[1] < 4:
-        return False, "shape %s" % (d.shape,)
+    if d.ndim != 2 or d.shape[1] != 4:
+        # exactly four columns (theta phi |Eth| |Eph|); accepting ">= 4" would
+        # silently read the phase column of a 6-column complex export as |Ephi|.
+        return False, "shape %s (expected 4 amplitude columns)" % (d.shape,)
     if d.shape[0] != grid.size:
         return False, "rows %d != %d" % (d.shape[0], grid.size)
     if not np.allclose(d[:, 0], grid.theta) or not np.allclose(d[:, 1], grid.phi):
@@ -215,7 +217,8 @@ def _ff_is_valid(path: str, grid: Grid, n_rows: Optional[int] = None) -> Tuple[b
 
 def scan_cases(cfg: DataCfg, grid: Optional[Grid] = None,
                snapshot: Optional[dict] = None, verbose: bool = True,
-               block: int = 2, n_side: int = 20
+               block: int = 2, n_side: int = 20,
+               max_samples: Optional[int] = None
                ) -> Tuple[List[Case], List[str]]:
     """Enumerate usable cases; returns (cases, warnings)."""
     if grid is None:
@@ -254,7 +257,19 @@ def scan_cases(cfg: DataCfg, grid: Optional[Grid] = None,
             if int(e["size"]) != os.path.getsize(c.ff_path):
                 raise RuntimeError("%s changed size since the snapshot (%d != %d)"
                                    % (c.name, os.path.getsize(c.ff_path), e["size"]))
+            want = e.get("sha256")
+            if want:
+                # size alone cannot detect an in-place rewrite of equal length;
+                # verify the recorded digest when the snapshot carries one.
+                got = _sha256_file(c.ff_path)
+                if got != want:
+                    raise RuntimeError("%s changed content since the snapshot "
+                                       "(sha256 mismatch)" % c.name)
     cases.sort(key=lambda c: c.idx)
+    if max_samples is not None and int(max_samples) > 0:
+        # Z2: the cap belongs to the CALLER, not to the enumeration.  Applying it
+        # here would also truncate build_snapshot(), which re-uses scan_cases.
+        cases = cases[:int(max_samples)]
     if verbose and warns:
         print("[dataset] %d file(s) skipped: %s" % (len(warns), warns[:3]))
     return cases, warns

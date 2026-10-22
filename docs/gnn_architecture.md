@@ -80,6 +80,14 @@ M3 的 `b` 是每样本一个复数（mean-pool 图嵌入），对应理论中"�
 2. 按 `layout_id` 分组切分，同布局不跨集；
 3. Normalizer 只在 train 上 fit；早停与选模型只看 val。
 
+
+## 7.5 2026-10-22 P0 之后的两个接口事实
+
+- **Δq 去均值**：M3 的残差在每张图上减去均值，mean(Δq) 恒为 0，均匀分量只由 b 承担；
+  b 与 mean(Δq) 不再简并，|b|≈0.37 成为可判定量。
+- **complex 损失禁用**：loss.mode=complex 现在直接抛 NotImplementedError，
+  需要 6 列复场数据集接通后才启用。
+
 ## 8 已修问题（2026-10-22）
 
 - `losses.py` 的 `..config` 越界（阻断）、`bits` 未转 tensor（阻断）、batch 维度（阻断）；

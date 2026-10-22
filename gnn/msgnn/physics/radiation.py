@@ -110,17 +110,29 @@ def aperture_sum_numpy(q, theta_deg, phi_deg, freq_ghz: float = 10.0,
 def farfield_numpy(q, theta_deg, phi_deg, freq_ghz: float = 10.0,
                    period_mm: float = 14.0, pos_mm: Optional[np.ndarray] = None,
                    projection: str = "vector", scale: float = 1.0,
-                   n_side: Optional[int] = None):
+                   n_side: Optional[int] = None,
+                   area_mm2: Optional[np.ndarray] = None):
     """Reference implementation of the operator, pointwise identical to
     theory/models.py:af_ideal(...) followed by _finish(projection=...).
 
     q may be (N,), (B, N) or any shape whose last axis is the node axis.
     Returns (eth, eph) with shape q.shape[:-1] + (M,).
+
+    area_mm2 (B2 hook): optional per-node effective area in mm^2.  The
+    equivalent source strength is q_n * A_n, so the global P^2 factor moves out
+    of the constant.  Passing A_n = P^2 reproduces the uniform path up to
+    float32 rounding (the numpy reference is exact);
+    a curved array is expected to pass its own A_n together with a local frame.
     """
     q = np.asarray(q, dtype=complex)
+    if area_mm2 is None:
+        c = const_c(freq_ghz, period_mm) * scale
+    else:
+        q = q * np.asarray(area_mm2, dtype=float)
+        c = 2.0 * np.sqrt(np.pi) / lam_mm(freq_ghz) * 1e-3 * scale
     s = aperture_sum_numpy(q, theta_deg, phi_deg, freq_ghz, period_mm, pos_mm, n_side)
     pth, pph = projection_factors(theta_deg, phi_deg, projection)
-    amp = const_c(freq_ghz, period_mm) * scale * s
+    amp = c * s
     shape = q.shape[:-1] + (amp.shape[-1],)
     return (amp * pth).reshape(shape), (amp * pph).reshape(shape)
 
@@ -151,7 +163,8 @@ class FarFieldOperator:
                  freq_ghz: float = 10.0, period_mm: float = 14.0,
                  projection: str = "vector", dtype=torch.float64,
                  chunk_m: int = 0, precompute: bool = True, scale: float = 1.0,
-                 n_side: Optional[int] = 20):
+                 n_side: Optional[int] = 20,
+                 area_mm2: Optional[np.ndarray] = None):
         self.theta_deg = np.asarray(theta_deg, dtype=float).ravel()
         self.phi_deg = np.asarray(phi_deg, dtype=float).ravel()
         if self.theta_deg.size != self.phi_deg.size:
@@ -172,6 +185,19 @@ class FarFieldOperator:
         self.n = self.pos_np.shape[0]
         self.k = 2.0 * np.pi / lam_mm(self.freq_ghz)
         self.c = const_c(self.freq_ghz, self.period_mm) * self.scale
+        # B2 hook: with a per-node area the source strength is q_n * A_n, so the
+        # global P^2 leaves the constant.  area_mm2=None keeps the old numerics.
+        self.area_np = None
+        self.area = None
+        if area_mm2 is not None:
+            a = np.asarray(area_mm2, dtype=float).ravel()
+            if a.size == 1:                       # a scalar broadcasts like numpy
+                a = np.full(self.n, float(a[0]))
+            if a.size != self.n:
+                raise ValueError("area_mm2 must be a scalar or have one entry per node")
+            self.area_np = a
+            self.area = torch.as_tensor(a, dtype=dtype)
+            self.c = 2.0 * np.sqrt(np.pi) / lam_mm(self.freq_ghz) * 1e-3 * self.scale
         pth, pph = projection_factors(self.theta_deg, self.phi_deg, projection)
         self.pth = torch.as_tensor(pth, dtype=dtype)
         self.pph = torch.as_tensor(pph, dtype=dtype)
@@ -221,6 +247,11 @@ class FarFieldOperator:
         if q_re.dim() == 1:
             q_re = q_re.unsqueeze(0)
             q_im = q_im.unsqueeze(0)
+        if self.area is not None:
+            # equivalent source strength q_n * A_n (B2)
+            a = self.area.to(dtype=q_re.dtype, device=q_re.device)
+            q_re = q_re * a
+            q_im = q_im * a
         outs = {"eth_re": [], "eth_im": [], "eph_re": [], "eph_im": []}
         for blk in self.blocks:
             kc, ks = self._kernels(blk)
@@ -251,7 +282,7 @@ class FarFieldOperator:
         q = np.asarray(q, dtype=complex)
         return farfield_numpy(q, self.theta_deg, self.phi_deg, self.freq_ghz,
                               self.period_mm, self.pos_np, self.projection,
-                              self.scale)
+                              self.scale, area_mm2=self.area_np)
 
 
 def uniform_aperture_dbsm(projection: str = "vector", freq_ghz: float = 10.0,

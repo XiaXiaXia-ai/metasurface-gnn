@@ -115,7 +115,8 @@ def build_context(cfg: Config, out_dir: Optional[str] = None,
 
     # ---- 2. cases + split
     cases, warns = scan_cases(cfg.data, grid, snap, verbose=verbose,
-                              block=cfg.physics.block, n_side=cfg.physics.n_side)
+                              block=cfg.physics.block, n_side=cfg.physics.n_side,
+                              max_samples=cfg.data.max_samples or None)
     if not cases:
         raise RuntimeError("no usable cases found under %s" % cfg.data.root)
     if splits is None and os.path.isfile(os.path.join(out_dir, "splits.json")):
