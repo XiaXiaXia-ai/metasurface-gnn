@@ -43,7 +43,7 @@ def test_uniform_aperture_numpy():
     q = np.ones(400, dtype=complex)
     eth, eph = R.farfield_numpy(q, th, ph, 10.0, 14.0)
     sig = R.sigma_from_fields(eth, eph)
-    assert R.to_db(sig)[0] == pytest.approx(19.342, abs=1e-6)
+    assert R.to_db(sig)[0] == pytest.approx(R.plate_dbsm(10.0), abs=1e-9)
 
 
 @pytest.mark.parametrize("mode", ["scalar", "vector"])
@@ -104,9 +104,11 @@ def test_matches_theory_models():
         q = C.gamma_map(cm).ravel()
         eth, eph = R.farfield_numpy(q, th, ph, 10.0, 14.0,
                                     R.lattice_positions(20, 14.0), proj)
-        scale = np.maximum(np.abs(ref.eth), 1e-30)
-        assert np.max(np.abs(eth - ref.eth) / scale) < 1e-9
-        assert np.max(np.abs(eph - ref.eph) / scale) < 1e-9
+        # global scale, not per-point: at theta = 90 deg the scalar projection
+        # is exactly zero, so a pointwise division compares numerical noise.
+        scale = max(np.abs(ref.eth).max(), np.abs(ref.eph).max(), 1e-30)
+        assert np.max(np.abs(eth - ref.eth)) / scale < 1e-9
+        assert np.max(np.abs(eph - ref.eph)) / scale < 1e-9
 
 
 def test_gradients_match_finite_differences():

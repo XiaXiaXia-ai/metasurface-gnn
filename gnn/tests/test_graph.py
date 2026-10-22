@@ -173,10 +173,10 @@ def test_collate_keeps_graphs_apart(env):
     assert b["batch"][:400].max().item() == 0
     assert b["batch"][400:].min().item() == 1
     # far field of each graph in the batch equals its standalone far field
-    f_batch = op(b["q0_re"], b["q0_im"])
+    f_batch = op(b["q0_re"].view(2, 400), b["q0_im"].view(2, 400))
     for k, i in enumerate((0, 1)):
         g = ds.get(i)
-        f_one = op(g["q0_re"][None], g["q0_im"][None])
+        f_one = op(g["q0_re"].view(1, 400).double(), g["q0_im"].view(1, 400).double())
         for key in f_batch:
             assert torch.allclose(f_batch[key][k], f_one[key][0], rtol=1e-12)
 
@@ -187,9 +187,14 @@ def test_normalizer_fits_train_only(env):
     graphs = [{"x": g["x"], "edge_attr": g["edge_attr"]} for g in ds.graphs]
     norm = Normalizer.fit(graphs)
     assert norm.n_graphs == 5
-    xt = norm.transform_x(graphs[0]["x"])
+    # the statistics are global over the training set, so check the concat of
+    # every training graph, and skip columns that carry no variance at all
+    # (e.g. normal_z, which is constant 1 for a planar array).
+    raw = np.concatenate([g["x"] for g in graphs], 0)
+    xt = np.concatenate([norm.transform_x(g["x"]) for g in graphs], 0)
     assert np.abs(xt.mean(0)).max() < 1e-4
-    assert np.abs(xt.std(0) - 1.0).max() < 1e-4
+    varying = raw.std(0) > 0
+    assert np.abs(xt.std(0)[varying] - 1.0).max() < 1e-4
     import json
     import tempfile
     with tempfile.TemporaryDirectory() as d:
