@@ -20,3 +20,15 @@ if (Test-Path (Join-Path $src 'fig')) {
 }
 
 "synced {0} files -> {1}" -f $files.Count, $dst
+if (Test-Path (Join-Path $src 'demo_out')) {
+    $dd = Join-Path $dst 'demo_out'
+    New-Item -ItemType Directory -Force -Path $dd | Out-Null
+    Get-ChildItem (Join-Path $src 'demo_out') -File |
+        Where-Object { $_.Extension -in '.png', '.csv', '.json', '.txt' } |
+        ForEach-Object { Copy-Item $_.FullName (Join-Path $dd $_.Name) -Force }
+    if (Test-Path (Join-Path $src 'demo_out\eval')) {
+        New-Item -ItemType Directory -Force -Path (Join-Path $dd 'eval') | Out-Null
+        Get-ChildItem (Join-Path $src 'demo_out\eval') -File |
+            ForEach-Object { Copy-Item $_.FullName (Join-Path $dd ('eval\' + $_.Name)) -Force }
+    }
+}
