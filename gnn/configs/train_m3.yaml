@@ -1,0 +1,47 @@
+# M3 -- the proposed model: local-periodic baseline + GNN residual + global mode.
+# q_n = q0_n + dq_n + b,  F = radiation(q),  loss = compressed dB MSE.
+data:
+  root: D:/dataset
+  split_seed: 20261022
+  val_frac: 0.15
+  test_frac: 0.15
+seed: 0
+seeds: [0, 1, 2]
+out_dir: runs
+graph:
+  radius: 1
+  self_loops: false
+physics:
+  freq_ghz: 10.0
+  projection: vector      # vector E_theta / E_phi (theory/REPORT.md sec. 4.5)
+  gamma_source: floquet    # faithful isolated-cell library (0.867 / 0.852)
+model:
+  name: m3
+  hidden: 64
+  n_layers: 3
+  global_branch: true
+  dropout: 0.0
+  layer_norm: true
+  zero_init_head: true
+loss:
+  mode: power              # labels are amplitude-only (4-column export)
+  compression: asinh
+  compression_db: 3.0
+  angle_weight: solid_angle
+  weight_floor: 0.2
+  mainlobe_deg: 6.0
+  mainlobe_boost: 3.0
+  null_weight: 0.0
+optim:
+  lr: 1.0e-3
+  weight_decay: 1.0e-4
+  batch_size: 8
+  epochs: 60
+  patience: 15
+  grad_clip: 1.0
+  scheduler: cosine
+  min_lr: 1.0e-5
+runtime:
+  threads: 4
+  dtype: float32
+  log_every: 1

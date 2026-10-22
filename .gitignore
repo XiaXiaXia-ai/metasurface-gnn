@@ -6,3 +6,5 @@ __pycache__/
 *.bak
 .DS_Store
 Thumbs.db
+gnn/runs/
+_tmp_spec/
