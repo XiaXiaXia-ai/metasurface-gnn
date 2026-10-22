@@ -49,3 +49,15 @@ git push origin main
 远端：`git@github.com:XiaXiaXia-ai/metasurface-gnn.git`（SSH；https 为 `https://github.com/XiaXiaXia-ai/metasurface-gnn`）
 
 首次推送已完成（2026-10-21）。`git config user.name = XiaXiaXia-ai`，提交作者与 GitHub 账号一致。）
+## 7 变更审计（2026-10-22 起，用户要求）
+
+**规则**：每次按用户要求改动代码之后，必须**新起一个子 agent** 做只读审计，对照"本次要求"逐条核验：
+
+1. 是否**只**改了要求范围内的文件与行为；
+2. 有无**超出要求的新增**（新模块 / 新依赖 / 新配置项 / 新默认值）；
+3. 有无**静默删除或修改**既有接口、默认值、数据契约、单位与坐标约定；
+4. 是否引入与物理约定（矢量投影、相位约定、绝对电平）或数据形式（4 列幅度、2° 网格）冲突的假设。
+
+**产出**：`docs/reviews/YYYY-MM-DD_<topic>.md`，每条给出 `file:line`、严重级别（阻断/重要/建议）与结论。
+**流程**：审计报告先入库 → 主 agent 逐条回应（接受 / 驳回 / 待定）→ 处理完毕才 push。
+**边界**：审计 agent 只读，不改代码、不运行实验。
