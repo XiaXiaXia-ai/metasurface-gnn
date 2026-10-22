@@ -22,6 +22,7 @@ import argparse
 import csv
 import json
 import os
+import shutil
 import time
 from typing import Dict, List, Optional
 
@@ -77,6 +78,14 @@ def train(cfg: Config, out_dir: str, seed: int = 0, max_train: int = 0,
     cfg.save(os.path.join(out_dir, "config.yaml"))
     if ctx.norm is not None:
         ctx.norm.save(os.path.join(out_dir, "normalizer.json"))
+    # D5: when the caller passes --snapshot, build_context uses that file but does
+    # not write it into the run directory; evaluate --runs <dir> then cannot find
+    # out_dir/snapshot.json and aborts.  Freeze a copy here so every run is
+    # self-contained and reproducible.
+    _snap = os.path.join(out_dir, "snapshot.json")
+    if (not os.path.isfile(_snap)) and ctx.snapshot_path \
+            and os.path.isfile(ctx.snapshot_path):
+        shutil.copyfile(ctx.snapshot_path, _snap)
 
     tr = ctx.ds["train"]
     va = ctx.ds["val"]
