@@ -32,3 +32,10 @@ if (Test-Path (Join-Path $src 'demo_out')) {
             ForEach-Object { Copy-Item $_.FullName (Join-Path $dd ('eval\' + $_.Name)) -Force }
     }
 }
+# 任何 fig*/ 子目录下的 PNG 也一并快照（如 fig_paper/）
+Get-ChildItem $src -Directory -Filter 'fig*' | ForEach-Object {
+    $sub = Join-Path $dst $_.Name
+    New-Item -ItemType Directory -Force -Path $sub | Out-Null
+    Get-ChildItem $_.FullName -File -Filter *.png |
+        ForEach-Object { Copy-Item $_.FullName (Join-Path $sub $_.Name) -Force }
+}
