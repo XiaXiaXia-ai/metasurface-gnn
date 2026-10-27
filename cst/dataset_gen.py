@@ -22,6 +22,7 @@ cases are skipped, everything else is rebuilt from scratch.
 """
 import argparse
 import ctypes
+import gc
 import json
 import os
 import random
@@ -47,7 +48,7 @@ WORK = os.path.join(ROOT, "work")
 PROGRESS_JSONL = os.path.join(ROOT, "progress.jsonl")
 PROGRESS_LOG = os.path.join(ROOT, "progress.log")
 
-TOTAL = 1000
+TOTAL = 2000
 SEED0 = 20261020
 NB = B.N // B.BLOCK          # 10 x 10 bits
 FF_FREQ = 10.0
@@ -235,10 +236,33 @@ def cleanup_work(i):
         pass
 
 
+def supervise(batch):
+    """Run the worker in batches so its memory is released regularly.
+
+    The COM proxy layer grows by ~14 MB per case inside the worker process;
+    restarting the worker every `batch` cases keeps it small.
+    """
+    import subprocess
+    while True:
+        n = done_count()
+        if n >= TOTAL:
+            log("supervisor: all %d cases done" % TOTAL)
+            return
+        log("supervisor: %d/%d done, launching worker for up to %d cases"
+            % (n, TOTAL, batch))
+        rc = subprocess.call([sys.executable, "-u", os.path.abspath(__file__),
+                              "--limit", str(batch)])
+        if rc != 0:
+            log("supervisor: worker exited %d, retrying in 30 s" % rc)
+            time.sleep(30)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--start", type=int, default=0)
     ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--supervise", type=int, default=0, metavar="N",
+                    help="batch mode: restart the worker every N cases")
     ap.add_argument("--status", action="store_true")
     args = ap.parse_args()
 
@@ -248,14 +272,20 @@ def main():
         print("finished %d / %d (%.1f%%)" % (n, TOTAL, 100.0 * n / TOTAL))
         return
 
+    if args.supervise:
+        supervise(args.supervise)
+        return
+
     de = connect_de()
     close_leftovers(de)
     log("start  memory %d%%  done %d/%d" % (mem_load(), done_count(), TOTAL))
 
-    stop_at = TOTAL if not args.limit else min(TOTAL, args.start + args.limit)
     times = []
+    processed = 0
 
-    for i in range(args.start, stop_at):
+    for i in range(args.start, TOTAL):
+        if args.limit and processed >= args.limit:
+            break
         res_path = os.path.join(RESULTS, "res_%04d.json" % i)
         if os.path.isfile(res_path):
             continue
@@ -324,6 +354,9 @@ def main():
                 except Exception:
                     pass
             cleanup_work(i)
+            del prj
+            gc.collect()
+            processed += 1
 
     log("run finished, %d/%d done" % (done_count(), TOTAL))
 
