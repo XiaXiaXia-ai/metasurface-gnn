@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Eight-slide talk: principle+features, pipeline, graph, network, models, results, plan, inspiration."""
 
 from pptx import Presentation
@@ -127,7 +127,7 @@ def header(slide, kicker, title, subtitle, title_size=31):
     rect(slide, 0.75, 1.92, 11.83, 0.014, LINE)
 
 
-def pagenum(slide, idx, total=9):
+def pagenum(slide, idx, total=10):
     tb = textbox(slide, 11.60, 7.06, 1.00, 0.26)
     p = para(tb.text_frame, first=True, align=PP_ALIGN.RIGHT)
     run(p, f"{idx:02d}", 12, NAVY, bold=True)
@@ -146,6 +146,24 @@ prs = Presentation()
 prs.slide_width = Inches(13.333)
 prs.slide_height = Inches(7.5)
 blank = prs.slide_layouts[6]
+
+# ============================== 0 · 器件 ====================================
+s = prs.slides.add_slide(blank)
+rect(s, 0, 0, 13.333, 7.5, WHITE)
+header(s, "器件设计 · 先看对象", "两种 1-bit 单元，组成 20×20 阵列",
+       "同一块板，改贴片半径就能给出两个相差 180° 的反射相位")
+
+pic = s.shapes.add_picture(r"D:\DSHNESS\GNN\fig_talk\intro_design.png",
+                           Inches(0.75), Inches(2.04), width=Inches(11.83))
+ph = 11.83 * pic.height / pic.width
+
+tb = textbox(s, 0.75, 2.04 + ph + 0.10, 11.83, 0.40)
+p = para(tb.text_frame, first=True, line=1.2)
+run(p, "两态相位差 179.95°、幅度差 0.15 dB", 13, NAVY, bold=True)
+run(p, "　→　满足 1-bit 编码条件；口径 280 mm（9.34λ @ 10 GHz），一个码 = 一张 8280 点的方向图。", 11.5, GRAY)
+
+strip(s, "后面要学的，就是“这 100 个比特 → 那张方向图”的映射；先记住这 400 个单元是同一块板上刻出来的。", y=6.30)
+pagenum(s, 1)
 
 # ============================== 1 · 为什么是 GNN =============================
 s = prs.slides.add_slide(blank)
@@ -213,7 +231,7 @@ s.notes_slide.notes_text_frame.text = (
     "② 中心把所有消息相加（与顺序无关）；③ 结合自身旧状态更新一次，这就是一层。"
     "堆三层，信息传三圈。")
 
-pagenum(s, 1)
+pagenum(s, 2)
 
 # ============================== 2 · 流程 ====================================
 s = prs.slides.add_slide(blank)
@@ -265,7 +283,7 @@ p = para(tb.text_frame, first=True)
 run(p, "损失：dB 域 asinh 压缩 MSE", 12, INK)
 
 strip(s, "关键：网络不学“波怎么传播”，只学“每个单元的权重偏了多少”。")
-pagenum(s, 2)
+pagenum(s, 3)
 
 # ============================== 3 · 节点与边 ================================
 s = prs.slides.add_slide(blank)
@@ -327,7 +345,7 @@ p = para(tb.text_frame, first=True, line=1.3)
 run(p, "每格只连上下左右和四个对角，不做周期延拓。", 12, GRAY)
 
 strip(s, "边缘单元只有 3–5 个邻居，靠“是否边缘”这一位告诉网络：别把它当内部单元。")
-pagenum(s, 3)
+pagenum(s, 4)
 
 # ============================== 4 · 网络 ====================================
 s = prs.slides.add_slide(blank)
@@ -381,7 +399,7 @@ for i, (num, head, body, gain) in enumerate(ops):
     run(p, gain, 10.5, MUTED)
 
 strip(s, "四个设计都为同一件事：让网络只学“物理算不准的那一点”，其余交给物理。")
-pagenum(s, 4)
+pagenum(s, 5)
 
 # ============================== 5 · q 的四个符号 =============================
 s = prs.slides.add_slide(blank)
@@ -438,7 +456,7 @@ run(p, "bit", 8.5, MUTED)
 run(p, "(1 + δ)，δ 就是这里 Δq/q0 那一类修正。", 10.5, MUTED)
 
 strip(s, "一句话：q0 是“应该反多少”，Δq 是“实际偏了多少”，b 是“整块板一起偏了多少”。")
-pagenum(s, 5)
+pagenum(s, 6)
 
 # ============================== 6 · 四个模型 ================================
 s = prs.slides.add_slide(blank)
@@ -483,7 +501,7 @@ tb = textbox(s, 0.75, 6.52, 11.83, 0.34)
 p = para(tb.text_frame, first=True)
 run(p, "目前只跑了 M0 和 M3；M1、M2 还没训，是下一步要补的对照。", 12, AMBER, bold=True)
 
-pagenum(s, 6)
+pagenum(s, 7)
 
 # ============================== 6 · 结果 ====================================
 s = prs.slides.add_slide(blank)
@@ -538,7 +556,7 @@ for i, (lead, tail) in enumerate(concl):
     p = para(tb.text_frame, line=1.2)
     run(p, tail, 11, GRAY)
 
-pagenum(s, 7)
+pagenum(s, 8)
 
 # ============================== 7 · 计划 ====================================
 s = prs.slides.add_slide(blank)
@@ -583,7 +601,7 @@ run(p, "　→　远期：", 12.5, TEAL, bold=True)
 run(p, "曲面、多频、反设计闭环", 12.5, INK)
 
 strip(s, "四个方向共用一个模型：换图、换单元库、换数据，不换网络。", y=6.55)
-pagenum(s, 8)
+pagenum(s, 9)
 
 # ============================== 8 · 启发 ====================================
 s = prs.slides.add_slide(blank)
@@ -631,11 +649,13 @@ for i, (head, sub_h, take, photo, notes) in enumerate(cols):
 s.notes_slide.notes_text_frame.text = "\n".join(all_notes)
 
 strip(s, "借的是“异质图 + 逐步外推”的组织方式，不是他们的网络结构。")
-pagenum(s, 9)
+pagenum(s, 10)
 
-out = r"D:\DSHNESS\GNN\GNN_编码超表面_汇报_九页.pptx"
+out = r"D:\DSHNESS\GNN\GNN_编码超表面_汇报_十页.pptx"
 prs.save(out)
 print("saved", out)
+
+
 
 
 
