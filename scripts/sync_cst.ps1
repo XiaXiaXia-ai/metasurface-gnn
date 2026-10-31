@@ -8,14 +8,14 @@ $dst = Join-Path (Split-Path $PSScriptRoot -Parent) 'cst'
 if (-not (Test-Path $src)) { throw "source not found: $src" }
 New-Item -ItemType Directory -Force -Path $dst | Out-Null
 
-$files = Get-ChildItem $src -File | Where-Object { $_.Extension -in '.py', '.md', '.docx' }
+$files = Get-ChildItem $src -File | Where-Object { $_.Extension -in '.py', '.md', '.docx', '.pptx' }
 foreach ($f in $files) { Copy-Item $f.FullName (Join-Path $dst $f.Name) -Force }
 
 # every fig*/ subdirectory (fig, fig_paper, ...)
 Get-ChildItem $src -Directory -Filter 'fig*' | ForEach-Object {
     $sub = Join-Path $dst $_.Name
     New-Item -ItemType Directory -Force -Path $sub | Out-Null
-    Get-ChildItem $_.FullName -File -Filter '*.png' |
+    Get-ChildItem $_.FullName -File | Where-Object { $_.Extension -in '.png', '.jpg', '.jpeg' } |
         ForEach-Object { Copy-Item $_.FullName (Join-Path $sub $_.Name) -Force }
 }
 
