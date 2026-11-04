@@ -302,7 +302,7 @@ node_rows = [
     ("身份", "码位 0/1、±1", "这一格是哪种相位"),
     ("位置", "x/λ、y/λ", "在阵列的哪个位置"),
     ("物理", "Γ 实部、虚部、|Γ|", "单元本身反多少、反多强"),
-    ("边界", "是否边缘、法向", "邻居少不少、是不是平面"),
+    ("边界", "是否边缘、法向 n̂·ẑ", "邻居少不少；法向给曲面留接口"),
 ]
 for i, (k, v, note) in enumerate(node_rows):
     y = 2.78 + i * 0.84
@@ -340,9 +340,13 @@ for i, (k, v, note) in enumerate(edge_rows):
     p = para(tb.text_frame, first=True)
     run(p, note, 11.5, MUTED)
 
-tb = textbox(s, 7.10, 5.42, 5.0, 0.60)
+tb = textbox(s, 7.10, 5.26, 5.0, 0.50)
 p = para(tb.text_frame, first=True, line=1.3)
 run(p, "每格只连上下左右和四个对角，不做周期延拓。", 12, GRAY)
+
+tb = textbox(s, 7.10, 5.72, 5.20, 0.50)
+p = para(tb.text_frame, first=True, line=1.22)
+run(p, "曲面时再打开：节点加主曲率 κ1λ、κ2λ、面积比 A/P²；边加法向差 normal_mismatch、真三维距离 r3d/λ。", 9.5, MUTED)
 
 strip(s, "边缘单元只有 3–5 个邻居，靠“是否边缘”这一位告诉网络：别把它当内部单元。")
 pagenum(s, 4)
@@ -611,7 +615,7 @@ header(s, "第八部分 · 会议启发", "两篇会议工作，两条能直接�
 
 cols = [
     ("异构 GCN", "节点是不同器件，边是物理连接",
-     "→ 不同相位单元，就是多类型节点",
+     "→ 不同相位单元 = 多类型节点，每种关系一套权重",
      r"D:\DSHNESS\GNN\fig_talk\conference_hetgcn.jpg",
      "Het-GCN：节点 = DR 单元与馈电探针（不同类型），边 = 相邻单元的物理连接；"
      "节点属性 = 尺寸 + 材料，边属性 = 相对位置；不同关系（DR-DR、DR-Probe）用不同权重。"
@@ -652,8 +656,16 @@ strip(s, "借的是“异质图 + 逐步外推”的组织方式，不是他们�
 pagenum(s, 10)
 
 out = r"D:\DSHNESS\GNN\GNN_编码超表面_汇报_十页.pptx"
-prs.save(out)
+try:
+    prs.save(out)
+except PermissionError:
+    out = r"D:\DSHNESS\GNN\GNN_编码超表面_汇报_十页_v2.pptx"
+    prs.save(out)
 print("saved", out)
+
+
+
+
 
 
 

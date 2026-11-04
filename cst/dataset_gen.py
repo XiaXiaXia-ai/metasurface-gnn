@@ -23,6 +23,7 @@ cases are skipped, everything else is rebuilt from scratch.
 import argparse
 import ctypes
 import gc
+import glob
 import json
 import os
 import random
@@ -48,7 +49,7 @@ WORK = os.path.join(ROOT, "work")
 PROGRESS_JSONL = os.path.join(ROOT, "progress.jsonl")
 PROGRESS_LOG = os.path.join(ROOT, "progress.log")
 
-TOTAL = 2000
+TOTAL = 3000
 SEED0 = 20261020
 NB = B.N // B.BLOCK          # 10 x 10 bits
 FF_FREQ = 10.0
@@ -76,9 +77,50 @@ def ensure_dirs():
         os.makedirs(d, exist_ok=True)
 
 
-def make_code(i):
-    rng = random.Random(SEED0 + i)
+def gen_code(seed):
+    rng = random.Random(seed)
     return [[rng.randint(0, 1) for _ in range(NB)] for _ in range(NB)]
+
+
+def code_key(bits):
+    return "".join("".join(str(b) for b in row) for row in bits)
+
+
+def make_unique_code(i, used):
+    """Deterministic code for case i, guaranteed different from every code in `used`."""
+    seed = SEED0 + i
+    while True:
+        bits = gen_code(seed)
+        key = code_key(bits)
+        if key not in used:
+            return seed, bits, key
+        seed += 1000003          # collision fallback; never triggers in practice
+
+
+def load_used_codes():
+    used = set()
+    for p in glob.glob(os.path.join(CODES, "code_*.txt")):
+        try:
+            _, bits = read_code_file(p)
+        except Exception:
+            continue
+        used.add(code_key(bits))
+    return used
+
+
+def read_code_file(path):
+    seed = None
+    rows = []
+    with open(path, encoding="utf-8") as fh:
+        for ln in fh:
+            ln = ln.strip()
+            if ln.startswith("#"):
+                if "seed" in ln:
+                    seed = int(ln.split("seed")[1].split()[0])
+                continue
+            if ln:
+                rows.append(ln)
+    return seed, [[int(ch) for ch in row] for row in rows]
 
 
 def expand(bits):
@@ -278,7 +320,9 @@ def main():
 
     de = connect_de()
     close_leftovers(de)
-    log("start  memory %d%%  done %d/%d" % (mem_load(), done_count(), TOTAL))
+    used = load_used_codes()
+    log("start  memory %d%%  done %d/%d  codes in use %d"
+        % (mem_load(), done_count(), TOTAL, len(used)))
 
     times = []
     processed = 0
@@ -293,10 +337,15 @@ def main():
         ff_path = os.path.join(FFDIR, "ff_%04d.txt" % i)
         ff_tmp = ff_path + ".tmp"
 
-        bits = make_code(i)
-        if not os.path.isfile(code_path):
+        if os.path.isfile(code_path):
+            seed_i, bits = read_code_file(code_path)   # resume: reuse the stored code
+            if seed_i is None:
+                seed_i = SEED0 + i
+        else:
+            seed_i, bits, _ = make_unique_code(i, used)  # new: never seen before
             atomic_write(code_path, "# index %d  seed %d  block %dx%d\n%s"
-                         % (i, SEED0 + i, B.BLOCK, B.BLOCK, code_text(bits)))
+                         % (i, seed_i, B.BLOCK, B.BLOCK, code_text(bits)))
+        used.add(code_key(bits))
         code20 = expand(bits)
 
         prj = None
@@ -316,7 +365,7 @@ def main():
             spec, mean_far, mx = analyse(ff_tmp)
             os.replace(ff_tmp, ff_path)
 
-            rec = dict(index=i, seed=SEED0 + i, block=B.BLOCK,
+            rec = dict(index=i, seed=seed_i, block=B.BLOCK,
                        code="".join("".join(str(b) for b in r) for r in bits),
                        freq_ghz=FF_FREQ, ff_step=FF_STEP,
                        specular_dbsm=round(spec, 3),
