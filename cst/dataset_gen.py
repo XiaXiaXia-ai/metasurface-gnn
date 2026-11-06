@@ -41,7 +41,10 @@ import cst.interface  # noqa: E402
 
 import build_coding_array as B  # noqa: E402
 
-ROOT = r"D:\dataset"
+# The dataset root and the array size can be overridden before import, which is
+# how dataset16_gen.py builds the independent 16x16 set.
+ROOT = os.environ.get("META_DATASET_ROOT", r"D:\dataset")
+N = int(os.environ.get("META_DATASET_N", B.N))      # array is N x N elements
 CODES = os.path.join(ROOT, "codes")
 RESULTS = os.path.join(ROOT, "results")
 FFDIR = os.path.join(RESULTS, "ff")
@@ -49,12 +52,16 @@ WORK = os.path.join(ROOT, "work")
 PROGRESS_JSONL = os.path.join(ROOT, "progress.jsonl")
 PROGRESS_LOG = os.path.join(ROOT, "progress.log")
 
-TOTAL = 3000
+TOTAL = int(os.environ.get("META_DATASET_TOTAL", 3000))
 SEED0 = 20261020
-NB = B.N // B.BLOCK          # 10 x 10 bits
+NB = N // B.BLOCK            # macro cells per side
 FF_FREQ = 10.0
 FF_STEP = 2.0                # degrees; 46 x 180 = 8280 points
-PLATE_DB = 19.34             # 4*pi*A^2/lambda^2 for the 280x280 plate at 10 GHz
+# 4*pi*A^2/lambda^2 for the N x N plate at the monitor frequency
+_PLATE_A = (N * B.P * 1e-3) ** 2
+_PLATE_LAM = 299792458.0 / (FF_FREQ * 1e9)
+PLATE_DB = round(10.0 * __import__("math").log10(
+    4.0 * __import__("math").pi * _PLATE_A ** 2 / _PLATE_LAM ** 2), 2)
 
 
 class MEMORYSTATUSEX(ctypes.Structure):
@@ -124,7 +131,7 @@ def read_code_file(path):
 
 
 def expand(bits):
-    return [[bits[m // B.BLOCK][n // B.BLOCK] for n in range(B.N)] for m in range(B.N)]
+    return [[bits[m // B.BLOCK][n // B.BLOCK] for n in range(N)] for m in range(N)]
 
 
 def code_text(bits):
@@ -133,10 +140,10 @@ def code_text(bits):
 
 def patches_vba(code20):
     out = []
-    for m in range(B.N):
-        for n in range(B.N):
-            x = (m - (B.N - 1) / 2.0) * B.P
-            y = (n - (B.N - 1) / 2.0) * B.P
+    for m in range(N):
+        for n in range(N):
+            x = (m - (N - 1) / 2.0) * B.P
+            y = (n - (N - 1) / 2.0) * B.P
             r = B.R1 if code20[m][n] else B.R0
             out.append("""With Cylinder
     .Reset
@@ -156,10 +163,42 @@ End With
     return "".join(out)
 
 
+SUBSTRATE_VBA = """With Brick
+    .Reset
+    .Name "substrate"
+    .Component "Array"
+    .Material "material1"
+    .Xrange "%g", "%g"
+    .Yrange "%g", "%g"
+    .Zrange "0", "%g"
+    .Create
+End With
+"""
+
+GROUND_VBA = """With Brick
+    .Reset
+    .Name "ground"
+    .Component "Array"
+    .Material "PEC"
+    .Xrange "%g", "%g"
+    .Yrange "%g", "%g"
+    .Zrange "0", "0"
+    .Create
+End With
+"""
+
+
 def blocks_for(code20):
+    """Model blocks for an N x N array; everything except the three geometry
+    blocks is taken verbatim from build_coding_array."""
     blocks = []
+    half = N * B.P / 2.0
     for cap, code in B.vba:
-        if cap == "build 400 patches":
+        if N != B.N and cap == "build substrate":
+            code = SUBSTRATE_VBA % (-half, half, -half, half, B.SUB_H)
+        elif N != B.N and cap == "build ground":
+            code = GROUND_VBA % (-half, half, -half, half)
+        elif cap == "build 400 patches":
             code = patches_vba(code20)
         blocks.append((cap, code))
     return blocks
