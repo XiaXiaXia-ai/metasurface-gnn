@@ -257,6 +257,10 @@ def atomic_write(path, text):
 def log(msg):
     line = "[%s] %s" % (time.strftime("%H:%M:%S"), msg)
     print(line, flush=True)
+    try:
+        os.makedirs(ROOT, exist_ok=True)
+    except OSError:
+        pass
     with open(PROGRESS_LOG, "a", encoding="utf-8") as fh:
         fh.write(line + "\n")
 
