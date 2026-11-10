@@ -320,10 +320,15 @@ def cleanup_work(i):
 def supervise(batch):
     """Run the worker in batches so its memory is released regularly.
 
-    The COM proxy layer grows by ~14 MB per case inside the worker process;
-    restarting the worker every `batch` cases keeps it small.
+    The COM proxy layer grows by ~14 MB per case inside the worker process, so
+    the worker is restarted every `batch` cases.  The supervisor also watches
+    progress: CST occasionally hangs inside Project.close(), which leaves the
+    worker waiting forever, so if no new case lands for `STALL_MIN` minutes the
+    worker and CST are killed and the batch is retried.
     """
     import subprocess
+
+    STALL_MIN = 15
     while True:
         n = done_count()
         if n >= TOTAL:
@@ -331,11 +336,33 @@ def supervise(batch):
             return
         log("supervisor: %d/%d done, launching worker for up to %d cases"
             % (n, TOTAL, batch))
-        rc = subprocess.call([sys.executable, "-u", os.path.abspath(__file__),
-                              "--limit", str(batch)])
-        if rc != 0:
-            log("supervisor: worker exited %d, retrying in 30 s" % rc)
+        proc = subprocess.Popen([sys.executable, "-u", os.path.abspath(__file__),
+                                 "--limit", str(batch)])
+        last, last_t = done_count(), time.time()
+        while proc.poll() is None:
             time.sleep(30)
+            d = done_count()
+            if d > last:
+                last, last_t = d, time.time()
+            elif (time.time() - last_t) > STALL_MIN * 60:
+                log("supervisor: no progress for %d min -> killing worker and CST"
+                    % STALL_MIN)
+                try:
+                    proc.kill()
+                    proc.wait(timeout=60)
+                except Exception:
+                    pass
+                # CST is the usual culprit (hung in Project.close()); take it
+                # down so the next worker starts a clean instance.
+                subprocess.call(["taskkill", "/F", "/IM",
+                                 "CST DESIGN ENVIRONMENT_AMD64.exe"],
+                                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                time.sleep(10)
+                break
+        rc = proc.returncode
+        if rc not in (0, None):
+            log("supervisor: worker exited %s, retrying" % rc)
+            time.sleep(10)
 
 
 def main():
