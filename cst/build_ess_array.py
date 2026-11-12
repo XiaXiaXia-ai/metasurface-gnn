@@ -90,8 +90,8 @@ End With
 """ % (name("lump"), RS, LS, cx, cy + y1, cx, cy + y2))
 
 
-def state1_cell(cx, cy):
-    """One ESS sub-cell centred at (cx, cy)."""
+def state1_cell(cx, cy, pfx):
+    """One ESS sub-cell centred at (cx, cy); objects named with the cluster prefix pfx."""
     out = []
     # 4x4 coded patches, mirrored in x, in y and in both
     for i in range(4):
@@ -106,26 +106,26 @@ def state1_cell(cx, cy):
                 for sy in (1, -1):
                     ax, bx = sorted((cx + sx * x0, cx + sx * x1))
                     ay, by = sorted((cy + sy * y0, cy + sy * y1))
-                    out.append(brick(ax, bx, ay, by, 0, 0, tag="p"))
+                    out.append(brick(ax, bx, ay, by, 0, 0, tag=pfx + "_p"))
     # PEC ring (4 strips, width RING_W, outer edge at +-P/2)
     h, r = P / 2.0, P / 2.0 - RING_W
-    out.append(brick(cx - h, cx + h, cy - h, cy - r, 0, 0, tag="ring"))
-    out.append(brick(cx - h, cx + h, cy + r, cy + h, 0, 0, tag="ring"))
-    out.append(brick(cx - h, cx - r, cy - r, cy + r, 0, 0, tag="ring"))
-    out.append(brick(cx + r, cx + h, cy - r, cy + r, 0, 0, tag="ring"))
+    out.append(brick(cx - h, cx + h, cy - h, cy - r, 0, 0, tag=pfx + "_ring"))
+    out.append(brick(cx - h, cx + h, cy + r, cy + h, 0, 0, tag=pfx + "_ring"))
+    out.append(brick(cx - h, cx - r, cy - r, cy + r, 0, 0, tag=pfx + "_ring"))
+    out.append(brick(cx + r, cx + h, cy - r, cy + r, 0, 0, tag=pfx + "_ring"))
     # two bars feeding the lumped elements
-    out.append(brick(cx - BAR_W / 2, cx + BAR_W / 2, cy, cy + 6.0, 0, 0, tag="bar"))
-    out.append(brick(cx - BAR_W / 2, cx + BAR_W / 2, cy - 6.0, cy, 0, 0, tag="bar"))
+    out.append(brick(cx - BAR_W / 2, cx + BAR_W / 2, cy, cy + 6.0, 0, 0, tag=pfx + "_bar"))
+    out.append(brick(cx - BAR_W / 2, cx + BAR_W / 2, cy - 6.0, cy, 0, 0, tag=pfx + "_bar"))
     # diode ON: R + L between bar end and ring inner edge
     out.append(lump(cx, cy, 7.0, 6.0))
     out.append(lump(cx, cy, -7.0, -6.0))
     return out
 
 
-def state0_cell(cx, cy):
+def state0_cell(cx, cy, pfx):
     """Solid PEC top over the whole macro cell (2x2 sub-cells)."""
     half = SUB * P / 2.0
-    return [brick(cx - half, cx + half, cy - half, cy + half, 0, 0, tag="metal")]
+    return [brick(cx - half, cx + half, cy - half, cy + half, 0, 0, tag=pfx + "_metal")]
 
 
 def build_blocks():
@@ -178,12 +178,12 @@ End With
             parts = []
             if code[m][n]:
                 st1 += 1
-                for dx in (-1, 1):
-                    for dy in (-1, 1):
-                        parts += state1_cell(cx + dx * P / 2.0, cy + dy * P / 2.0)
+                for s, (dx, dy) in enumerate(((-1, -1), (1, -1), (-1, 1), (1, 1))):
+                    pfx = "c%02d%02d_%d" % (m, n, s)
+                    parts += state1_cell(cx + dx * P / 2.0, cy + dy * P / 2.0, pfx)
             else:
                 st0 += 1
-                parts += state0_cell(cx, cy)
+                parts += state0_cell(cx, cy, "m%02d%02d" % (m, n))
             blocks.append(("macro %02d_%02d" % (m, n), "".join(parts)))
 
     blocks.append(("plane wave", """With PlaneWave
@@ -211,7 +211,7 @@ End With
 End With
 """ % (FMON, FMON)))
     blocks.append(("solver", """With Solver
-    .Method "Tetrahedral"
+    .Method "Hexahedral TLM"
     .StimulationPort "Plane wave"
     .StimulationMode "1"
     .SteadyStateLimit "-40"
