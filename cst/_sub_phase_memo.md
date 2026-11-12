@@ -1,5 +1,9 @@
 # ESS 单元 on 态反射相位：参考面审核备忘
 
+> **2026-11-12 17:15 更正：本备忘的 +180 度偏移结论是错的。**
+> CST 直接锚点：全金属 z=0 端口 -180 度、裸地板 +107.95 度、旧 ESS on 态 -9.921 度；
+> 端口相位已经等于 z=0 物理相位。以 [CST_相位锚点与关键更正.md](CST_相位锚点与关键更正.md) 为准。
+
 日期：2026-11-12  
 对象：reflect_ess_on_state.py（15 mm 周期、3 mm 真空、PEC 地板 z=-3、结构面 z=0、Floquet 口 Zmax=+7.5、SetDistanceToReferencePlane "-7.5"）  
 数据：D:\re_cst_code1110\code1110_on_phase.txt / code1110_on_db.txt，10 GHz：port phase = **-9.921185°**，|S11| = **-1.107183 dB**（线性 0.8803）。  

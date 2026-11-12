@@ -34,3 +34,7 @@ if (Test-Path (Join-Path $src 'demo_out')) {
 }
 
 "synced {0} top-level files -> {1}" -f $files.Count, $dst
+
+# top-level figures (skip scratch files that start with an underscore)
+Get-ChildItem $src -File | Where-Object { $_.Extension -in '.png', '.jpg' -and -not $_.Name.StartsWith('_') } |
+    ForEach-Object { Copy-Item $_.FullName (Join-Path $dst $_.Name) -Force }
