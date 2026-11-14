@@ -29,7 +29,7 @@ sys.path.insert(0, r"C:\Program Files\CST Studio Suite 2026\AMD64\python_cst_lib
 import cst.interface
 
 P = 14.0
-N = 8
+N = 8             # sub-cells per side; override with --n (12 -> 6x6 macro)
 BLOCK = 2
 NB = N // BLOCK
 R0 = 5.0          # bit 0 -> -91.6 deg
@@ -264,6 +264,7 @@ def analyse_ff(path):
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--n", type=int, default=8)
     ap.add_argument("--total", type=int, default=1000)
     ap.add_argument("--root", default=r"D:\dataset_r42r5")
     ap.add_argument("--once", action="store_true")
@@ -271,7 +272,11 @@ def main():
     ap.add_argument("--seed0", type=int, default=99100)
     args = ap.parse_args()
 
-    global ROOT
+    global ROOT, N, NB, L, half
+    N = args.n
+    NB = N // BLOCK
+    L = N * P
+    half = L / 2.0
     ROOT = args.root
     codes_dir = os.path.join(ROOT, "codes")
     results = os.path.join(ROOT, "results")
