@@ -38,3 +38,17 @@ if (Test-Path (Join-Path $src 'demo_out')) {
 # top-level figures (skip scratch files that start with an underscore)
 Get-ChildItem $src -File | Where-Object { $_.Extension -in '.png', '.jpg' -and -not $_.Name.StartsWith('_') } |
     ForEach-Object { Copy-Item $_.FullName (Join-Path $dst $_.Name) -Force }
+
+# code bundles: any top-level *_bundle directory (py/md only, no CST output)
+Get-ChildItem $src -Directory -Filter '*_bundle' | ForEach-Object {
+    $sub = Join-Path $dst $_.Name
+    New-Item -ItemType Directory -Force -Path $sub | Out-Null
+    Get-ChildItem $_.FullName -Recurse -File | Where-Object {
+        $_.Extension -in '.py', '.md' -and $_.FullName -notmatch '__pycache__'
+    } | ForEach-Object {
+        $rel = $_.FullName.Substring($_.Directory.Parent.FullName.Length + 1)
+        $target = Join-Path $dst $rel
+        New-Item -ItemType Directory -Force -Path (Split-Path $target -Parent) | Out-Null
+        Copy-Item $_.FullName $target -Force
+    }
+}
